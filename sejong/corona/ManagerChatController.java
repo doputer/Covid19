@@ -28,8 +28,8 @@ public class ManagerChatController implements Runnable {
 		this.chatData = chatData;
 		this.v = v;
 		
-		appMain();
 		connectServer();
+		appMain();
 	}
 
 	public void appMain() {
@@ -41,7 +41,11 @@ public class ManagerChatController implements Runnable {
 				Object obj = e.getSource();
 
 				if (obj == v.msgInput) {
-					outMsg.println(gson.toJson(new Message(v.idCb.getSelectedItem().toString(), "", v.msgInput.getText(), "msg")));
+					if (v.idCb.getSelectedItem().equals("전체")) {
+						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "all")));
+					} else {
+						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "user", v.idCb.getSelectedItem().toString())));
+					}
 					v.msgInput.setText("");
 				}
 			}
@@ -56,8 +60,7 @@ public class ManagerChatController implements Runnable {
 			inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			outMsg = new PrintWriter(socket.getOutputStream(), true);
 
-			m = new Message(m.id, "", "", "login");
-			
+			m = new Message("관리자", "", "", "login"); // 관리자 로그인이 필요하면 추후에 수정할 것
 			outMsg.println(gson.toJson(m));
 
 			thread = new Thread(this);

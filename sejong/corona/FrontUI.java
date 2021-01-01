@@ -1,5 +1,5 @@
 package sejong.corona;
-System.out.println("\n");
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

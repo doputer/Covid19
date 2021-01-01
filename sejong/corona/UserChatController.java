@@ -22,18 +22,22 @@ public class UserChatController extends Thread {
 	private boolean status = true;
 	Thread thread;
 	public int num = 2;
-	public String id = "User".concat(Integer.toString(num));
-	private Message m = new Message("", "", "", "");
+	public String id;
+	private Message m;
 
-	public UserChatController(ChatData chatData, UserChatUI view) {
+	public UserChatController(ChatData chatData, UserChatUI view, String name) {
 		logger = Logger.getLogger(this.getClass().getName());
 		this.view = view;
 		this.chatData = chatData;
+		
+		id = name;
+		
+		connectServer();
+		appMain();
 	}
 
 	void appMain() {
 		chatData.addObj(view.msgOut);
-		connectServer();
 		view.id = m.getId();
 		view.addButtonActionListener(new ActionListener() {
 			@Override
@@ -41,8 +45,19 @@ public class UserChatController extends Thread {
 				Object obj = e.getSource();
 
 				if (obj == view.msgInput) {
-					outMsg.println(gson.toJson(new Message(view.id, "", view.msgInput.getText(), "msg")));
+					outMsg.println(gson.toJson(new Message(id, "", view.msgInput.getText(), "manager")));
 					view.msgInput.setText("");
+				} else if (obj == view.exitBtn) {
+					outMsg.println(gson.toJson(new Message(id, "", "", "logout")));
+					view.msgOut.setText("");
+					outMsg.close();
+					try {
+						inMsg.close();
+						socket.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					status = false;
 				}
 			}
 		});
@@ -57,8 +72,7 @@ public class UserChatController extends Thread {
 			inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			outMsg = new PrintWriter(socket.getOutputStream(), true);
 
-			m = new Message("", "", "", "");
-
+			m = new Message(id, "", "", "login");
 			outMsg.println(gson.toJson(m));
 
 			thread = new Thread(this);
