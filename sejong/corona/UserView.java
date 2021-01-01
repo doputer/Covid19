@@ -54,6 +54,9 @@ public class UserView extends JFrame {
 
 	JLabel logo;
 	Image img;
+	
+	UserChatUI userChatUI;
+	
 	int backNum = 1; // background flag
 
 	public UserView() {
@@ -132,6 +135,16 @@ public class UserView extends JFrame {
 		reserve1Btn = new JButton("예약하기");
 		reserveCheckBtn = new JButton("예약 확인");
 		connect1Btn = new JButton("문의하기");
+		connect1Btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		        if (e.getSource() == connect1Btn) {
+		            if (userChatUI == null) {
+		            	userChatUI = new UserChatUI(UserView.this, "문의", name.getText());
+		            }
+		            userChatUI.setVisible(true);
+		        }
+		    }
+		});
 		cancel1Btn = new JButton("취소");
 
 		name.setBounds(280, 180, 200, 30);
