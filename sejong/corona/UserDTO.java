@@ -1,3 +1,4 @@
+package sejong.corona;
 
 public class UserDTO {
 	private int id;

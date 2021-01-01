@@ -20,16 +20,21 @@ public class UserChatUI extends JFrame {
 	public CardLayout cardLayout;
 
 	public String id;
+	
+	private UserChatController userChatController;
 
 	public UserChatUI(JFrame frame, String title, String name) {
 		setTitle("문의하기");
 
 		startUI();
-		new UserChatController(new ChatData(), this, name);
-
+		userChatController = new UserChatController(new ChatData(), this, name);
+		
 		setSize(500, 300);
 		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
 		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				userChatController.connectController();
+			}
 			@Override
 			public void windowClosing(WindowEvent e) {
 				super.windowClosing(e);

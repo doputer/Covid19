@@ -68,19 +68,6 @@ public class ChatServer {
 					} else if (m.getType().equals("all")) {
 						msgSendToAll(msg);
 					}
-
-					/*
-					 * if(m.type.equals("logout")) { chatThreads.remove(this);
-					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "���� �����߽��ϴ�.", "chat")));
-					 * status = false; } if(m.type.equals("login")) { if(id == null) id = m.id;
-					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "���� �α����߽��ϴ�.", "chat"))); }
-					 */
-//               id = m.id;
-//               msgSendAll(gson.toJson(new ChatMessage(m.id, "���� �����մϴ�.")));
-
-//               for(ChatThread ct : chatThreads) {
-//                  ct.outMsg.println(gson.toJson(new ChatMessage(m.msg)));               
-//               }
 				} catch (IOException e) {
 					e.printStackTrace();
 					status = false;

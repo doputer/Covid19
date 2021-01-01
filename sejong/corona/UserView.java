@@ -54,9 +54,9 @@ public class UserView extends JFrame {
 
 	JLabel logo;
 	Image img;
-	
+
 	UserChatUI userChatUI;
-	
+
 	int backNum = 1; // background flag
 
 	public UserView() {
@@ -77,11 +77,11 @@ public class UserView extends JFrame {
 		setSize(640, 440);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
+
 		UserView.this.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-				
+
 				if (obj == reserve1Btn) {
 					switchPanel(reservePnl, writePnl);
 				} else if (obj == nextBtn) {
@@ -115,7 +115,7 @@ public class UserView extends JFrame {
 
 		p.add(logo);
 	}
-	
+
 	private void switchPanel(JPanel originPnl, JPanel newPnl) {
 		originPnl.setVisible(false);
 		newPnl.setVisible(true);
@@ -137,13 +137,13 @@ public class UserView extends JFrame {
 		connect1Btn = new JButton("문의하기");
 		connect1Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        if (e.getSource() == connect1Btn) {
-		            if (userChatUI == null) {
-		            	userChatUI = new UserChatUI(UserView.this, "문의", name.getText());
-		            }
-		            userChatUI.setVisible(true);
-		        }
-		    }
+				if (e.getSource() == connect1Btn) {
+					if (userChatUI == null) {
+						userChatUI = new UserChatUI(UserView.this, "문의", name.getText());
+					}
+					userChatUI.setVisible(true);
+				}
+			}
 		});
 		cancel1Btn = new JButton("취소");
 
@@ -170,17 +170,16 @@ public class UserView extends JFrame {
 		cancel1Btn.setBounds(480, 300, 100, 50);
 		reservePnl.add(cancel1Btn);
 
+		backGround(backNum, reservePnl);
 		reservePnl.setVisible(true);
 		UserView.this.setContentPane(reservePnl);
-
-		backGround(backNum, reservePnl);
 	}
 
 	// 예약 확인 화면
 	public void reserveCheckUI() {
 		checkPnl = new JPanel();
 		checkPnl.setLayout(null);
-		
+
 		backNum = 1;
 
 		// 버튼
@@ -234,7 +233,7 @@ public class UserView extends JFrame {
 		checkPnl.add(p2);
 		checkPnl.add(p3);
 
-	    backGround(backNum, checkPnl);
+		backGround(backNum, checkPnl);
 		checkPnl.setVisible(false);
 	}
 
@@ -323,7 +322,7 @@ public class UserView extends JFrame {
 		writePnl.add(symptom3);
 		writePnl.add(symptom4);
 
-	    backGround(backNum, writePnl);
+		backGround(backNum, writePnl);
 		writePnl.setVisible(false);
 	}
 
@@ -332,13 +331,6 @@ public class UserView extends JFrame {
 		choosePnl = new JPanel();
 		choosePnl.setLayout(null);
 		backNum = 2;
-
-		setTitle("코로나 선별 진료소 예약 시스템");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-
-		setSize(640, 440);
-		setLocationRelativeTo(null);
 
 		// 버튼
 		reserve2Btn = new JButton("등록");
@@ -364,7 +356,7 @@ public class UserView extends JFrame {
 
 		numLabel = new JLabel("");
 		numLabel.setBounds(170, 180, 150, 30);
-//임의로 지정해둠 나중에 수정
+// 임의로 지정해둠 나중에 수정
 		numLabel.setText(" 01 / 40 ");
 		choosePnl.add(numLabel);
 
@@ -375,10 +367,10 @@ public class UserView extends JFrame {
 
 		// DateChooser
 		date = new JDateChooser();
-	    date.setDateFormatString("yyyy-MM-dd");
-	    date.setBounds(390, 130, 170, 40);
-	    date.getJCalendar().setPreferredSize(new Dimension(170, 200)); 
-	    choosePnl.add(date);
+		date.setDateFormatString("yyyy-MM-dd");
+		date.setBounds(390, 130, 170, 40);
+		date.getJCalendar().setPreferredSize(new Dimension(170, 200));
+		choosePnl.add(date);
 
 		backGround(backNum, choosePnl);
 		choosePnl.setVisible(false);

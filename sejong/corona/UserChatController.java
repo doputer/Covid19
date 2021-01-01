@@ -31,13 +31,9 @@ public class UserChatController extends Thread {
 		this.chatData = chatData;
 		
 		id = name;
-		
-		connectServer();
-		appMain();
 	}
 
 	void appMain() {
-		chatData.addObj(view.msgOut);
 		view.id = m.getId();
 		view.addButtonActionListener(new ActionListener() {
 			@Override
@@ -61,10 +57,18 @@ public class UserChatController extends Thread {
 				}
 			}
 		});
-
+	}
+	
+	public void connectController() {
+		chatData.addObj(view.msgOut);
+		
+		if (connectServer())
+			appMain();
+		else
+			chatData.refreshData("서버에 연결되지 않았습니다.\n");
 	}
 
-	public void connectServer() {
+	public boolean connectServer() {
 		try {
 			socket = new Socket("127.0.0.1", 8888);
 			logger.log(INFO, "[Client]Server 연결 성공!!");
@@ -77,9 +81,13 @@ public class UserChatController extends Thread {
 
 			thread = new Thread(this);
 			thread.start();
+			
+			return true;
 		} catch (Exception e) {
 			logger.log(WARNING, "[UserChatController]connectServer() Exception 발생!!");
 			e.printStackTrace();
+			
+			return false;
 		}
 	}
 

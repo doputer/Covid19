@@ -1,3 +1,5 @@
+package sejong.corona;
+
 import java.sql.*;
 import java.util.*;
 import java.awt.*;
@@ -19,7 +21,7 @@ public class ManagerDAO {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
-			System.out.println("µå¶óÀÌ¹ö ¿¬°á ¼º°ø!");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}catch(ClassNotFoundException e) {
@@ -37,9 +39,9 @@ public class ManagerDAO {
            
             int rs = pstmt.executeUpdate();
             if(rs > 0)
-                System.out.println(u.getName() + " ÀÔ·Â ¼º°ø");
+                System.out.println(u.getName() + " ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½");
             else
-                System.out.println(u.getName() + "ÀÔ·Â ½ÇÆÐ");
+                System.out.println(u.getName() + "ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½");
         	} catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,7 +53,7 @@ public class ManagerDAO {
 			sql = "SELECT * FROM user join user_detail";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
-			items.add("Áø·á¼Ò");
+			items.add("ï¿½ï¿½ï¿½ï¿½ï¿½");
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -77,7 +79,7 @@ public class ManagerDAO {
 			sql = "SELECT ?, ?, ? FROM reserve";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
-			items.add("Áø·á¼Ò");
+			items.add("ï¿½ï¿½ï¿½ï¿½ï¿½");
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -105,9 +107,9 @@ public class ManagerDAO {
           int sucess = pstmt.executeUpdate();
           
           if(sucess > 0)
-              System.out.println(t.getName() + " ¼öÁ¤ ¼º°ø");
+              System.out.println(t.getName() + " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
           else
-              System.out.println(t.getName() + " ¼öÁ¤ ½ÇÆÐ");
+              System.out.println(t.getName() + " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
           
       } catch (SQLException e) {
           e.printStackTrace();
@@ -122,9 +124,9 @@ public class ManagerDAO {
 
 	            int sucess = pstmt.executeUpdate();
 	            if(sucess > 0)
-	                System.out.println(code + " »èÁ¦ ¼º°ø");
+	                System.out.println(code + " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	            else
-	                System.out.println(code + "»èÁ¦ ½ÇÆÐ");
+	                System.out.println(code + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		 }catch(SQLException e){
 	        	e.printStackTrace();
 		 }
@@ -138,9 +140,9 @@ public class ManagerDAO {
             
             int sucess = pstmt.executeUpdate();
             if(sucess > 0)
-                System.out.println("ÀüÃ¼ »èÁ¦ ¼º°ø");
+                System.out.println("ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             else
-                System.out.println("ÀüÃ¼ »èÁ¦ ½ÇÆÐ");
+                System.out.println("ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}catch(SQLException e){
         	e.printStackTrace();
 		}
