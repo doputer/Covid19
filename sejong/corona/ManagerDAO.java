@@ -1,5 +1,3 @@
-package sejong.corona;
-
 import java.sql.*;
 import java.util.*;
 import java.awt.*;
@@ -21,7 +19,7 @@ public class ManagerDAO {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
-			System.out.println("����̹� ���� ����!");
+			System.out.println("드라이버 연결 성공!");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}catch(ClassNotFoundException e) {
@@ -29,23 +27,7 @@ public class ManagerDAO {
 		}
 	}
 	
-	public void newUser(UserDTO u) {
-		try {
-			sql = "INSERT INTO user VALUES(0,?,?)";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, u.getName());
-			pstmt.setString(2, String.valueOf(u.getPhone()));
-           
-            int rs = pstmt.executeUpdate();
-            if(rs > 0)
-                System.out.println(u.getName() + " �Է� ����");
-            else
-                System.out.println(u.getName() + "�Է� ����");
-        	} catch (SQLException e) {
-            e.printStackTrace();
-        }
-	}
+
 	
 	public ArrayList<UserDTO> getAllUser(){
 		try {
@@ -53,7 +35,7 @@ public class ManagerDAO {
 			sql = "SELECT * FROM user join user_detail";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
-			items.add("�����");
+			items.add("진료소");
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -79,7 +61,7 @@ public class ManagerDAO {
 			sql = "SELECT ?, ?, ? FROM reserve";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
-			items.add("�����");
+			items.add("진료소");
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -107,9 +89,9 @@ public class ManagerDAO {
           int sucess = pstmt.executeUpdate();
           
           if(sucess > 0)
-              System.out.println(t.getName() + " ���� ����");
+              System.out.println(t.getName() + " 수정 성공");
           else
-              System.out.println(t.getName() + " ���� ����");
+              System.out.println(t.getName() + " 수정 실패");
           
       } catch (SQLException e) {
           e.printStackTrace();
@@ -124,9 +106,9 @@ public class ManagerDAO {
 
 	            int sucess = pstmt.executeUpdate();
 	            if(sucess > 0)
-	                System.out.println(code + " ���� ����");
+	                System.out.println(code + " 삭제 성공");
 	            else
-	                System.out.println(code + "���� ����");
+	                System.out.println(code + "삭제 실패");
 		 }catch(SQLException e){
 	        	e.printStackTrace();
 		 }
@@ -140,9 +122,9 @@ public class ManagerDAO {
             
             int sucess = pstmt.executeUpdate();
             if(sucess > 0)
-                System.out.println("��ü ���� ����");
+                System.out.println("전체 삭제 성공");
             else
-                System.out.println("��ü ���� ����");
+                System.out.println("전체 삭제 실패");
 		}catch(SQLException e){
         	e.printStackTrace();
 		}
