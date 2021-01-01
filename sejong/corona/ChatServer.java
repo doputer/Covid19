@@ -60,21 +60,23 @@ public class ChatServer {
 					m = gson.fromJson(msg, Message.class);
 
 					if (m.getType().equals("login")) {
-						msgSendAll(msg);
-					} else if (m.getId().equals("ÀüÃ¼")) {
-						msgSendAll(msg);
-					} else {
-						msgSendTo(msg, m.getId());
+						loginSignal(msg);
+					} else if (m.getType().equals("user")) {
+						msgSendToUser(msg);
+					} else if (m.getType().equals("manager")) {
+						msgSendToManager(msg);
+					} else if (m.getType().equals("all")) {
+						msgSendToAll(msg);
 					}
 
 					/*
 					 * if(m.type.equals("logout")) { chatThreads.remove(this);
-					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "´ÔÀÌ Á¾·áÇß½À´Ï´Ù.", "chat")));
+					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.", "chat")));
 					 * status = false; } if(m.type.equals("login")) { if(id == null) id = m.id;
-					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "´ÔÀÌ ·Î±×ÀÎÇß½À´Ï´Ù.", "chat"))); }
+					 * msgSendAll(gson.toJson(new ChatMessage(m.id, "", "ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.", "chat"))); }
 					 */
 //               id = m.id;
-//               msgSendAll(gson.toJson(new ChatMessage(m.id, "´ÔÀÌ ¹®ÀÇÇÕ´Ï´Ù.")));
+//               msgSendAll(gson.toJson(new ChatMessage(m.id, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.")));
 
 //               for(ChatThread ct : chatThreads) {
 //                  ct.outMsg.println(gson.toJson(new ChatMessage(m.msg)));               
@@ -88,15 +90,35 @@ public class ChatServer {
 			logger.info(this.getName() + " Close!");
 		}
 		
-		void msgSendTo(String msg, String receiver) {
+		void loginSignal(String msg) {
 			for (ChatThread ct : chatThreads) {
-				if (ct.m.getId().equals(receiver)) {
+				if (ct.m.getId().equals("ê´€ë¦¬ì")) {
+					ct.outMsg.println(msg);
+				}
+			}
+		}
+		
+		void msgSendToUser(String msg) {
+			for (ChatThread ct : chatThreads) {
+				if (ct.m.getId().equals(m.getReceiver())) {
+					ct.outMsg.println(msg);
+				} else if (ct.m.getId().equals(m.getId())) {
+					ct.outMsg.println(msg);
+				}
+			}
+		}
+		
+		void msgSendToManager(String msg) {
+			for (ChatThread ct : chatThreads) {
+				if (ct.m.getId().equals("ê´€ë¦¬ì")) {
+					ct.outMsg.println(msg);
+				} else if (ct.m.getId().equals(m.getId())) {
 					ct.outMsg.println(msg);
 				}
 			}
 		}
 
-		void msgSendAll(String msg) {
+		void msgSendToAll(String msg) {
 			for (ChatThread ct : chatThreads) {
 				ct.outMsg.println(msg);
 			}
