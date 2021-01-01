@@ -21,8 +21,8 @@ public class ManagerChatUI extends JFrame {
 		setLayout(new BorderLayout());
 
 		startUI();
-		new ManagerChatController(new ManagerChatData(), this);
-		uId.add("ÀüÃ¼");
+		new ManagerChatController(new ChatData(), this);
+		uId.add("ì „ì²´");
 
 		setSize(400, 700);
 
@@ -43,7 +43,7 @@ public class ManagerChatUI extends JFrame {
 		msgOut.setEditable(false);
 		msgPanel = new JPanel();
 		msgInput = new JTextField(33);
-		sendBtn = new JButton("Àü¼Û");
+		sendBtn = new JButton("ì „ì†¡");
 
 		jsp = new JScrollPane(msgOut, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

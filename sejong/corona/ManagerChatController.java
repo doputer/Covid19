@@ -6,11 +6,10 @@ import java.net.Socket;
 import java.util.logging.*;
 import static java.util.logging.Level.*;
 import com.google.gson.Gson;
-import java.util.Random;
 
 public class ManagerChatController implements Runnable {
 	private final ManagerChatUI v;
-	private final ManagerChatData chatData;
+	private final ChatData chatData;
 
 	Logger logger;
 
@@ -23,7 +22,7 @@ public class ManagerChatController implements Runnable {
 	private boolean status = true;
 	private Thread thread;
 
-	public ManagerChatController(ManagerChatData chatData, ManagerChatUI v) {
+	public ManagerChatController(ChatData chatData, ManagerChatUI v) {
 		logger = Logger.getLogger(this.getClass().getName());
 
 		this.chatData = chatData;
@@ -57,8 +56,6 @@ public class ManagerChatController implements Runnable {
 			inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			outMsg = new PrintWriter(socket.getOutputStream(), true);
 
-			Random r = new Random();
-			m.id = "°ü¸®ÀÚ" + String.valueOf(r.nextInt(100));
 			m = new Message(m.id, "", "", "login");
 			
 			outMsg.println(gson.toJson(m));

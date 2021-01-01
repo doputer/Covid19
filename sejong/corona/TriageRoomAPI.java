@@ -14,9 +14,9 @@ public class TriageRoomAPI extends Thread {
 	TriageRoomAPI() throws IOException {
 		urlBuilder = new StringBuilder("http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList"); /*URL*/
 	    urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=FGCYsRMVV8zUAjWgMk%2BREtpmO%2F5HJpxRq%2F1R7Z5%2B40UPUz6s6Q3K%2Bb0Eb68cUBuxOz%2FyD%2Fa17jxNHgpQxxn6Pg%3D%3D"); /*Service Key*/
-	    urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*ÆäÀÌÁö¹øÈ£*/
-	    urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*ÇÑ ÆäÀÌÁö °á°ú ¼ö*/
-	    urlBuilder.append("&" + URLEncoder.encode("spclAdmTyCd","UTF-8") + "=" + URLEncoder.encode("99", "UTF-8")); /*A0: ±¹¹Î¾È½Éº´¿ø/97: ÄÚ·Î³ª°Ë»ç ½Ç½Ã±â°ü/99: ÄÚ·Î³ª ¼±º°Áø·á¼Ò ¿î¿µ±â°ü*/
+	    urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*í˜ì´ì§€ë²ˆí˜¸*/
+	    urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*í•œ í˜ì´ì§€ ê²°ê³¼ ìˆ˜*/
+	    urlBuilder.append("&" + URLEncoder.encode("spclAdmTyCd","UTF-8") + "=" + URLEncoder.encode("99", "UTF-8")); /*A0: êµ­ë¯¼ì•ˆì‹¬ë³‘ì›/97: ì½”ë¡œë‚˜ê²€ì‚¬ ì‹¤ì‹œê¸°ê´€/99: ì½”ë¡œë‚˜ ì„ ë³„ì§„ë£Œì†Œ ìš´ì˜ê¸°ê´€*/
 
 		this.start();
 	}
@@ -27,7 +27,7 @@ public class TriageRoomAPI extends Thread {
 	
 	@Override
 	public void run() {
-		int page = 1; // ÆäÀÌÁö ÃÊ±â°ª
+		int page = 1; // í˜ì´ì§€ ì´ˆê¸°ê°’
 		try {
 			while (true) {
 				String url = new URL(urlBuilder.toString()).toString();
@@ -38,14 +38,14 @@ public class TriageRoomAPI extends Thread {
 				// root tag
 				doc.getDocumentElement().normalize();
 
-				// ÆÄ½ÌÇÒ tag
+				// íŒŒì‹±í•  tag
 				NodeList nList = doc.getElementsByTagName("item");
 
 				for (int temp = 0; temp < nList.getLength(); temp++) {
 					Node nNode = nList.item(temp);
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element eElement = (Element) nNode;
-						if (getTagValue("sidoNm", eElement).toString().equals("¼­¿ï")) {
+						if (getTagValue("sidoNm", eElement).toString().equals("ì„œìš¸")) {
 							h.add(getTagValue("yadmNm", eElement).toString());
 						}
 					}
@@ -67,7 +67,7 @@ public class TriageRoomAPI extends Thread {
 		this.interrupt();
 	}
 
-	// tag°ªÀÇ Á¤º¸¸¦ °¡Á®¿À´Â ¸Ş¼Òµå
+	// tagê°’ì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œ
 	private static String getTagValue(String tag, Element eElement) {
 		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
 		Node nValue = (Node) nlList.item(0);

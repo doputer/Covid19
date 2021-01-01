@@ -10,7 +10,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 	JComboBox<String> hospitalCb, dateCb;
 	JButton okBtn, cancleBtn;
 
-	DiagnosisUI(JFrame frame, String title) { // ÆÄ¶ó¹ÌÅÍ·Î ¿¹¾àÀÚ Á¤º¸ °¡Á®¿À±â		
+	DiagnosisUI(JFrame frame, String title) { // íŒŒë¼ë¯¸í„°ë¡œ ì˜ˆì•½ì ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		super(frame, title);
 		setLayout(null);
 		
@@ -28,18 +28,18 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 	}
 
 	private void startUI() {
-		nameTf = new JTextField(10); // ÃßÈÄ¿¡ ¼öÁ¤
+		nameTf = new JTextField(10); // ì¶”í›„ì— ìˆ˜ì •
 		nameTf.setBounds(40, 20, 120, 30);
-		nameTf.setText("È«±æµ¿");
+		nameTf.setText("í™ê¸¸ë™");
 		nameTf.setEditable(false);
 		nameTf.setHorizontalAlignment(JLabel.CENTER);
-		symptomBtn = new JButton("¹®ÁøÇ¥ º¸±â");
+		symptomBtn = new JButton("ë¬¸ì§„í‘œ ë³´ê¸°");
 		symptomBtn.setBounds(180, 20, 120, 30);
 		diagnosisTa = new JTextArea();
 		diagnosisTa.setBounds(40, 60, 260, 240);
-		okBtn = new JButton("È®ÀÎ");
+		okBtn = new JButton("í™•ì¸");
 		okBtn.setBounds(80, 380, 80, 30);
-		cancleBtn = new JButton("Ãë¼Ò");
+		cancleBtn = new JButton("ì·¨ì†Œ");
 		cancleBtn.setBounds(180, 380, 80, 30);
 		
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
