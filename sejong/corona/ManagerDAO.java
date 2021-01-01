@@ -45,9 +45,9 @@ public class ManagerDAO {
         }
 	}
 	
-	public ArrayList<Manager> getAllUser(){
+	public ArrayList<UserDTO> getAllUser(){
 		try {
-			ArrayList<Manager> datas = new ArrayList<Manager>();
+			ArrayList<UserDTO> datas = new ArrayList<UserDTO>();
 			sql = "SELECT * FROM user join user_detail";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
@@ -71,9 +71,9 @@ public class ManagerDAO {
 		return null;
 	}
 	
-	public ArrayList<Manager> getUser(){
+	public ArrayList<UserDTO> getUser(){
 		try {
-			ArrayList<Manager> datas = new ArrayList<Manager>();
+			ArrayList<UserDTO> datas = new ArrayList<UserDTO>();
 			sql = "SELECT ?, ?, ? FROM reserve";
 			pstmt = conn.prepareStatement(sql);
 			items = new Vector<String>();
