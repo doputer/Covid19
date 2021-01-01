@@ -14,14 +14,14 @@ public class FrontUI extends JFrame {
 	static TriageRoomAPI triageRoomModel;
 	ManagerView managerView;
 	UserView userView;
-	
+
 	FrontUI() {
 		setTitle("코로나 선별 진료소 예약 / 관리 시스템");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
 		startUI();
-		
+
 		try {
 			triageRoomModel = new TriageRoomAPI();
 		} catch (IOException e) {
@@ -43,29 +43,29 @@ public class FrontUI extends JFrame {
 //		img.getScaledInstance(1, 1, Image.SCALE_SMOOTH);
 		logo = new JLabel(new ImageIcon(img));
 //		logo.setBounds(0, 0, 640, 390);
-		
+
 		userBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        if (e.getSource() == userBtn) {
-		            if (userView == null) {
-		            	userView = new UserView();
-		            }
-		            userView.setVisible(true);
-		        }
-		    }
+				if (e.getSource() == userBtn) {
+					if (userView == null) {
+						userView = new UserView();
+					}
+					userView.setVisible(true);
+				}
+			}
 		});
-		
+
 		managerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        if (e.getSource() == managerBtn) {
-		            if (managerView == null) {
-		            	managerView = new ManagerView();
-		            }
-		            managerView.setVisible(true);
-		        }
-		    }
+				if (e.getSource() == managerBtn) {
+					if (managerView == null) {
+						managerView = new ManagerView();
+					}
+					managerView.setVisible(true);
+				}
+			}
 		});
-		
+
 		add(userBtn);
 		add(managerBtn);
 		add(logo, BorderLayout.CENTER);
