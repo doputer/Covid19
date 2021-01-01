@@ -13,9 +13,10 @@ public class FrontUI extends JFrame {
 
 	static TriageRoomAPI triageRoomModel;
 	ManagerView managerView;
+	UserView userView;
 	
 	FrontUI() {
-		setTitle("ÄÚ·Î³ª ¼±º° Áø·á¼Ò ¿¹¾à / °ü¸® ½Ã½ºÅÛ");
+		setTitle("ì½”ë¡œë‚˜ ì„ ë³„ ì§„ë£Œì†Œ ì˜ˆì•½ / ê´€ë¦¬ ì‹œìŠ¤í…œ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
@@ -33,15 +34,26 @@ public class FrontUI extends JFrame {
 	}
 
 	private void startUI() {
-		userBtn = new JButton("¿¹¾àÀÚ");
+		userBtn = new JButton("ì˜ˆì•½ì");
 		userBtn.setBounds(160, 200, 120, 50);
-		managerBtn = new JButton("°ü¸®ÀÚ");
+		managerBtn = new JButton("ê´€ë¦¬ì");
 		managerBtn.setBounds(360, 200, 120, 50);
 
 		img = new ImageIcon(FrontUI.class.getResource("/sejong/corona/background.png")).getImage();
 //		img.getScaledInstance(1, 1, Image.SCALE_SMOOTH);
 		logo = new JLabel(new ImageIcon(img));
 //		logo.setBounds(0, 0, 640, 390);
+		
+		userBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		        if (e.getSource() == userBtn) {
+		            if (userView == null) {
+		            	userView = new UserView();
+		            }
+		            userView.setVisible(true);
+		        }
+		    }
+		});
 		
 		managerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
