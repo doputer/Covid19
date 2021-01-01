@@ -18,6 +18,7 @@ public class ManagerView extends JFrame {
 	JDateChooser dateChooser;
 //	ManagerController controlL;
 	
+	DiagnosisUI diagnosisUI;
 	ManagerChatUI managerChatUI;
 	
 	public int cnt = 0;
@@ -45,7 +46,7 @@ public class ManagerView extends JFrame {
 		message.setLayout(null);
 
 		List = new JList<String>();
-		List.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		List.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(List);
 		scroll.setBounds(10, 200, 870, 450);
 		add(scroll);
@@ -57,19 +58,30 @@ public class ManagerView extends JFrame {
 		dateChooser.setBounds(250, 100, 170, 40);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
-		JButton _diagnosis = new JButton("¿¹¾àÀÚ Áø´Ü");
-		JButton _consulting = new JButton("¿¹¾àÀÚ »ó´ã");
+		JButton _diagnosis = new JButton("ì˜ˆì•½ì ì§„ë‹¨");
+		_diagnosis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		        if (e.getSource() == _diagnosis) {
+		            if (diagnosisUI == null) {
+		            	diagnosisUI = new DiagnosisUI(ManagerView.this, "ì§„ë‹¨");
+		            }
+		            diagnosisUI.setVisible(true);
+		            _diagnosis.requestFocus();
+		        }
+		    }
+		});
+		JButton _consulting = new JButton("ì˜ˆì•½ì ìƒë‹´");
 		_consulting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        if (e.getSource() == _consulting) {
 //		            if (managerChatUI == null) {
-		            	managerChatUI = new ManagerChatUI(ManagerView.this, "»ó´ãÇÏ±â"); // °è¼Ó »ı¼ºÇÏÁö ¸»°í À§Ä¡¸¸ ÀúÀåÇØ³õ±â
+		            	managerChatUI = new ManagerChatUI(ManagerView.this, "ìƒë‹´í•˜ê¸°"); // ê³„ì† ìƒì„±í•˜ì§€ ë§ê³  ìœ„ì¹˜ë§Œ ì €ì¥í•´ë†“ê¸°
 //		            }
 		            managerChatUI.setVisible(true);
 		        }
 		    }
 		});
-		JButton _confirm = new JButton("¿¹¾àÀÚ Á¶È¸");
+		JButton _confirm = new JButton("ì˜ˆì•½ì ì¡°íšŒ");
 
 		_diagnosis.setBounds(40, 30, 150, 40);
 		_consulting.setBounds(680, 30, 150, 40);
@@ -80,19 +92,19 @@ public class ManagerView extends JFrame {
 //		_confirm.addActionListener(controlL);
 
 		JLabel mNumber = new JLabel(cnt + "/40");
-		mNumber.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 40));
+		mNumber.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 40));
 		mNumber.setBounds(500, 30, 150, 40);
 		message.add(mNumber);
 
 		_clinic = new JComboBox();
 		_clinic.setBounds(40, 100, 170, 40);
-		_clinic.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-		_clinic.addItem("Áø·á¼Ò");
+		_clinic.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 15));
+		_clinic.addItem("ì§„ë£Œì†Œ");
 
 		_symptom = new JComboBox();
 		_symptom.setBounds(460, 100, 170, 40);
-		_symptom.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-		_symptom.addItem("Áõ»ó");
+		_symptom.setFont(new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 15));
+		_symptom.addItem("ì¦ìƒ");
 
 		message.add(_clinic);
 		message.add(_diagnosis);
