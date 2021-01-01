@@ -56,6 +56,7 @@ public class UserView extends JFrame {
 	Image img;
 
 	UserChatUI userChatUI;
+	UserChatController userChatController;
 
 	int backNum = 1; // background flag
 
@@ -138,9 +139,10 @@ public class UserView extends JFrame {
 		connect1Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect1Btn) {
-					if (userChatUI == null) {
-						userChatUI = new UserChatUI(UserView.this, "문의", name.getText());
-					}
+//					if (userChatUI == null) {
+						userChatUI = new UserChatUI(UserView.this, "문의하기", name.getText());
+//					}
+//					userChatController = new UserChatController(new ChatData(), userChatUI, name.getText());
 					userChatUI.setVisible(true);
 				}
 			}
