@@ -2,7 +2,7 @@ package sejong.corona;
 
 import javax.swing.*;
 
-public class ManagerChatData {
+public class ChatData {
 	private JTextArea ta;
 
 	public void addObj(JTextArea ta) {

@@ -21,11 +21,24 @@ public class UserChatUI extends JFrame {
 
 	public String id;
 
-	public UserChatUI() {
-		super("문의하기");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(500, 300);
+	public UserChatUI(JFrame frame, String title, String name) {
+		setTitle("문의하기");
 
+		startUI();
+		new UserChatController(new ChatData(), this, name);
+
+		setSize(500, 300);
+		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				dispose();
+			}
+		});
+	}
+	
+	private void startUI() {
 		tab = getContentPane();
 
 		tab.setLayout(new BorderLayout());
@@ -47,8 +60,6 @@ public class UserChatUI extends JFrame {
 		msgPanel.add(exitBtn);
 
 		tab.add(msgPanel, BorderLayout.SOUTH);
-
-		setVisible(true);
 	}
 
 	public void addButtonActionListener(ActionListener listener) {

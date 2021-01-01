@@ -14,7 +14,7 @@ public class Message {
 		this.type = "";
 		this.receiver = "";
 	}
-
+	
 	Message(String id, String passwd, String msg, String type) {
 		this.id = id;
 		this.passwd = passwd;
@@ -46,7 +46,7 @@ public class Message {
 	public String getType() {
 		return this.type;
 	}
-
+	
 	public String getReceiver() {
 		return this.receiver;
 	}
