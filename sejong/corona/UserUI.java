@@ -78,6 +78,12 @@ public class UserUI extends JFrame {
 		setSize(640, 440);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+		FontManager fm = new FontManager();
+		fm.setDefaultFont(reservePnl.getComponents());
+		fm.setDefaultFont(checkPnl.getComponents());
+		fm.setDefaultFont(writePnl.getComponents());
+		fm.setDefaultFont(choosePnl.getComponents());
 
 		UserUI.this.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -212,14 +218,13 @@ public class UserUI extends JFrame {
 						// 예약확인 할 정보 불러오기
 						UserDTO reservation = dao.checkReservation(id);
 
-						checkLabel1.setText(reservation.getName() + "    님");
-						checkLabel2.setText(
-								"예약하신 선별진료소는        " + reservation.getHospital() + "                    입니다.");
-						checkLabel3.setText("예약 날짜는         " + reservation.getDate() + "            입니다.");
+						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
+						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital() + "</font> 입니다.</html>");
+						checkLabel3.setText("<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
 						if (reservation.getStatus() == null) {
-							checkLabel4.setText("예약 현황            예약 미승인               입니다.");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
 						} else {
-							checkLabel4.setText("예약 현황            " + reservation.getStatus() + "               입니다.");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus() + "</font> 입니다.</html>");
 						}
 
 						switchPanel(choosePnl, checkPnl);
@@ -246,16 +251,13 @@ public class UserUI extends JFrame {
 
 						UserDTO reservation = dao.checkReservation(id);
 
-						checkLabel1.setText(reservation.getName() + "    님");
-						checkLabel2.setText(
-								"예약하신 선별진료소는        " + reservation.getHospital() + "                    입니다.");
-						checkLabel3.setText("예약 날짜는         " + reservation.getDate() + "            입니다.");
-						checkLabel2.setText("예약하신 선별진료소는        " + reservation.getHospital() + "                입니다.");
-						checkLabel3.setText("예약 날짜는         " + reservation.getDate() + "            입니다.");
+						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
+						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital() + "</font> 입니다.</html>");
+						checkLabel3.setText("<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
 						if (reservation.getStatus() == null) {
-							checkLabel4.setText("예약 현황            예약 미승인               입니다.");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
 						} else {
-							checkLabel4.setText("예약 현황            " + reservation.getStatus() + "               입니다.");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus() + "</font> 입니다.</html>");
 						}
 						switchPanel(reservePnl, checkPnl);
 
@@ -324,18 +326,18 @@ public class UserUI extends JFrame {
 			}
 		});
 
-		name.setBounds(280, 180, 200, 30);
+		name.setBounds(250, 180, 200, 30);
 		reservePnl.add(name);
 
-		phone.setBounds(280, 230, 200, 30);
+		phone.setBounds(250, 230, 200, 30);
 		reservePnl.add(phone);
 
 		JLabel lbl = new JLabel("이름");
-		lbl.setBounds(200, 180, 50, 30);
+		lbl.setBounds(180, 180, 50, 30);
 		reservePnl.add(lbl);
 
-		JLabel lbl2 = new JLabel("핸드폰");
-		lbl2.setBounds(200, 230, 50, 30);
+		JLabel lbl2 = new JLabel("연락처");
+		lbl2.setBounds(180, 230, 50, 30);
 		reservePnl.add(lbl2);
 
 		reserve1Btn.setBounds(60, 300, 100, 50);
@@ -393,7 +395,6 @@ public class UserUI extends JFrame {
 		checkLabel2 = new JLabel("");
 		checkLabel2.setBounds(170, 170, 400, 30);
 
-		checkLabel2.setBounds(170, 170, 500, 30);
 		checkLabel3 = new JLabel("");
 		checkLabel3.setBounds(170, 200, 300, 30);
 
@@ -404,20 +405,6 @@ public class UserUI extends JFrame {
 		checkPnl.add(checkLabel2);
 		checkPnl.add(checkLabel3);
 		checkPnl.add(checkLabel4);
-
-		// Panel
-		JPanel p1 = new JPanel();
-		p1.setBounds(310, 170, 150, 28);
-		p1.setBackground(Color.LIGHT_GRAY);
-		JPanel p2 = new JPanel();
-		p2.setBounds(245, 202, 90, 28);
-		p2.setBackground(Color.LIGHT_GRAY);
-		JPanel p3 = new JPanel();
-		p3.setBounds(240, 240, 100, 28);
-		p3.setBackground(Color.LIGHT_GRAY);
-		checkPnl.add(p1);
-		checkPnl.add(p2);
-		checkPnl.add(p3);
 
 		backGround(backNum, checkPnl);
 		checkPnl.setVisible(false);
@@ -455,23 +442,23 @@ public class UserUI extends JFrame {
 
 		// 라벨
 		JLabel lbl = new JLabel("주소");
-		lbl.setBounds(70, 130, 50, 30);
+		lbl.setBounds(70, 130, 60, 30);
 		writePnl.add(lbl);
 
 		JLabel lbl2 = new JLabel("생년월일");
-		lbl2.setBounds(70, 180, 50, 30);
+		lbl2.setBounds(70, 180, 60, 30);
 		writePnl.add(lbl2);
 
 		JLabel lbl3 = new JLabel("성별");
-		lbl3.setBounds(70, 230, 50, 30);
+		lbl3.setBounds(70, 230, 60, 30);
 		writePnl.add(lbl3);
 
 		JLabel lbl4 = new JLabel("증상");
-		lbl4.setBounds(330, 130, 50, 30);
+		lbl4.setBounds(330, 130, 80, 30);
 		writePnl.add(lbl4);
 
 		JLabel lbl5 = new JLabel("기타사항");
-		lbl5.setBounds(330, 230, 50, 30);
+		lbl5.setBounds(330, 230, 80, 30);
 		writePnl.add(lbl5);
 
 		// Radio 버튼
@@ -497,13 +484,13 @@ public class UserUI extends JFrame {
 		symptom3 = new JCheckBox(symptom3Name);
 		symptom4 = new JCheckBox(symptom4Name);
 
-		symptom1.setBounds(390, 130, 50, 30);
+		symptom1.setBounds(390, 130, 80, 30);
 		symptom1.setBackground(Color.WHITE);
 		symptom2.setBounds(390, 170, 80, 30);
 		symptom2.setBackground(Color.WHITE);
-		symptom3.setBounds(470, 130, 50, 30);
+		symptom3.setBounds(470, 130, 80, 30);
 		symptom3.setBackground(Color.WHITE);
-		symptom4.setBounds(470, 170, 50, 30);
+		symptom4.setBounds(470, 170, 80, 30);
 		symptom4.setBackground(Color.WHITE);
 		writePnl.add(symptom1);
 		writePnl.add(symptom2);
@@ -547,8 +534,7 @@ public class UserUI extends JFrame {
 		choosePnl.add(lbl3);
 
 		numLabel = new JLabel("");
-		numLabel.setBounds(170, 180, 150, 30);
-//임의로 지정해둠 나중에 수정
+		numLabel.setBounds(150, 180, 80, 30);
 
 		numLabel.setText("0명");
 		choosePnl.add(numLabel);
