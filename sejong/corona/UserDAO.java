@@ -139,6 +139,25 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 	
+	public void newResult(int id) {
+		connectDB();
+		sql = "insert into manager_result (user_id) values(?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("진단 생성 성공");
+			
+		} catch (SQLException e) {
+			System.out.println("진단 생성 실패");
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateUser(UserDTO user) {
 		connectDB();
 		sql = "update user set name = ? where phone = ?";
