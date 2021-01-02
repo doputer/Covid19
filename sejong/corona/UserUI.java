@@ -247,20 +247,35 @@ public class UserUI extends JFrame {
 						UserDTO reservation = dao.checkReservation(id);
 
 						checkLabel1.setText(reservation.getName() + "    님");
+<<<<<<< HEAD
 						checkLabel2.setText(
 								"예약하신 선별진료소는        " + reservation.getHospital() + "                    입니다.");
 						checkLabel3.setText("예약 날짜는         " + reservation.getDate() + "            입니다.");
 						if (reservation.getStatus() == null) {
+=======
+						checkLabel2.setText("예약하신 선별진료소는        " + reservation.getHospital() +  "                입니다.");
+						checkLabel3.setText("예약 날짜는         " + reservation.getDate() +"            입니다.");
+						if( reservation.getStatus() == null) {
+>>>>>>> main
 							checkLabel4.setText("예약 현황            예약 미승인               입니다.");
 						} else {
 							checkLabel4.setText("예약 현황            " + reservation.getStatus() + "               입니다.");
 						}
 						switchPanel(reservePnl, checkPnl);
+						
+						name.setText("");
+						phone.setText("");
 					}
 
 				} else if (obj == cancel1Btn) {
 
 					UserUI.this.setVisible(false);
+					
+				} else if (obj == connect2Btn) {
+					UserDTO reservation = dao.checkReservation(id);
+					
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName()); // 이 부분
+					userChatUI.setVisible(true);
 				}
 			}
 		});
@@ -361,6 +376,7 @@ public class UserUI extends JFrame {
 		confirmBtn.setBackground(new Color(230, 250, 230));
 		checkPnl.add(confirmBtn);
 		connect2Btn.setBounds(350, 300, 100, 45);
+<<<<<<< HEAD
 		connect2Btn.setBackground(new Color(230, 250, 230));
 		connect2Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -370,6 +386,10 @@ public class UserUI extends JFrame {
 				}
 			}
 		});
+=======
+		connect2Btn.setBackground(new Color(230,250,230));
+		
+>>>>>>> main
 		checkPnl.add(connect2Btn);
 
 		// Text
@@ -378,8 +398,13 @@ public class UserUI extends JFrame {
 		checkLabel1.setBounds(170, 150, 100, 30);
 
 		checkLabel2 = new JLabel("");
+<<<<<<< HEAD
 		checkLabel2.setBounds(170, 170, 400, 30);
 
+=======
+		checkLabel2.setBounds(170, 170, 500, 30);
+		
+>>>>>>> main
 		checkLabel3 = new JLabel("");
 		checkLabel3.setBounds(170, 200, 300, 30);
 
