@@ -23,6 +23,7 @@ public class ManagerChatUI extends JFrame {
 		startUI();
 		new ManagerChatController(new ChatData(), this);
 		uId.add("전체");
+		idCb.setSelectedIndex(0);
 
 		setSize(400, 700);
 
@@ -34,6 +35,8 @@ public class ManagerChatUI extends JFrame {
 				dispose();
 			}
 		});
+		
+		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
@@ -42,7 +45,7 @@ public class ManagerChatUI extends JFrame {
 		msgOut = new JTextArea();
 		msgOut.setEditable(false);
 		msgPanel = new JPanel();
-		msgInput = new JTextField(30);
+		msgInput = new JTextField(29);
 		sendBtn = new JButton("전송");
 
 		jsp = new JScrollPane(msgOut, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

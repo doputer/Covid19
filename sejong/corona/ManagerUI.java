@@ -11,7 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class ManagerView extends JFrame {
+public class ManagerUI extends JFrame {
 	JTextArea textL;
 	JLabel mNumber;
 	JComboBox<String> _clinic;
@@ -32,7 +32,7 @@ public class ManagerView extends JFrame {
 	int col = -1, row = -1;
 	public int cnt = 0;
 
-	public ManagerView() {
+	public ManagerUI() {
 		setFrame();
 		setOption();
 		
@@ -47,6 +47,8 @@ public class ManagerView extends JFrame {
 				dao.closeDB();
 			}
 		});
+		
+		new FontManager(this.getComponents());
 
 		setVisible(true);
 	}
@@ -120,7 +122,7 @@ public class ManagerView extends JFrame {
 //					if (diagnosisUI == null) {
 //					}
 					if (row < dataTbl.getRowCount() && row > -1) {
-						diagnosisUI = new DiagnosisUI(ManagerView.this, "진단", ManagerView.this);
+						diagnosisUI = new DiagnosisUI(ManagerUI.this, "진단", ManagerUI.this);
 						diagnosisUI.setVisible(true);
 					}
 					_diagnosis.requestFocus();
@@ -132,7 +134,7 @@ public class ManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _consulting) {
 //		            if (managerChatUI == null) {
-					managerChatUI = new ManagerChatUI(ManagerView.this, "상담하기"); // 계속 생성하지 말고 위치만 저장해놓기
+					managerChatUI = new ManagerChatUI(ManagerUI.this, "상담하기"); // 계속 생성하지 말고 위치만 저장해놓기
 //		            }
 					managerChatUI.setVisible(true);
 				}
@@ -156,9 +158,17 @@ public class ManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _delete) {
 					if (row < dataTbl.getRowCount() && row > -1) {
-						dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
-						cnt = 0;
-						controlL.refresh();
+						if (dataTbl.getSelectedRows().length > 1) {
+							for (int x : dataTbl.getSelectedRows()) {
+								dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(x, 0).toString()));
+							}
+							cnt = 0;
+							controlL.refresh();
+						} else {
+							dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
+							cnt = 0;
+							controlL.refresh();
+						}
 					}
 				}
 			}

@@ -13,7 +13,7 @@ public class FrontUI extends JFrame {
 	Image img;
 
 	static TriageRoomAPI triageRoomModel;
-	ManagerView managerView;
+	ManagerUI managerView;
 
 	UserUI userUI;
 
@@ -29,6 +29,8 @@ public class FrontUI extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		new FontManager(this.getComponents());
 
 		setSize(640, 440);
 		setLocationRelativeTo(null);
@@ -40,7 +42,7 @@ public class FrontUI extends JFrame {
 		userBtn.setBounds(160, 200, 120, 50);
 		userBtn.setBackground(new Color(230,250,250));
 		managerBtn = new JButton("관리자");
-		managerBtn.setBounds(360, 200, 120, 50);
+		managerBtn.setBounds(350, 200, 120, 50);
 		managerBtn.setBackground(new Color(250,250,230));
 
 		img = new ImageIcon(FrontUI.class.getResource("/sejong/corona/background.png")).getImage();
@@ -61,7 +63,7 @@ public class FrontUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == managerBtn) {
 					if (managerView == null) {
-						managerView = new ManagerView();
+						managerView = new ManagerUI();
 					}
 					managerView.setVisible(true);
 				}

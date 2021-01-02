@@ -9,10 +9,10 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class ManagerController {
-	ManagerView view;
+	ManagerUI view;
 	ManagerDAO dao;
 
-	ManagerController(ManagerView view, ManagerDAO dao) {
+	ManagerController(ManagerUI view, ManagerDAO dao) {
 		this.view = view;
 		this.dao = dao;
 	}

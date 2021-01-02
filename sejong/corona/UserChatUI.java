@@ -39,6 +39,8 @@ public class UserChatUI extends JFrame {
 				controller.unconnectServer();
 			}
 		});
+		
+		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
@@ -48,7 +50,7 @@ public class UserChatUI extends JFrame {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		msgPanel = new JPanel();
-		msgInput = new JTextField(30);
+		msgInput = new JTextField(29);
 
 		sendBtn = new JButton("전송");
 

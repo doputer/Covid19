@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 public class ManagerDAO extends CovidDAO {
-	ManagerView view;
+	ManagerUI view;
 
 	public ManagerDAO() {
 //		connectDB();
