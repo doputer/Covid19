@@ -95,9 +95,9 @@ public class ManagerView extends JFrame {
 		dateChooser.setBounds(250, 100, 170, 40);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
-		JLabel mNumber = new JLabel(cnt + "/40");
+		JLabel mNumber = new JLabel("현재 진료소 인원 수: " + cnt);
 		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		mNumber.setBounds(830, 160, 100, 20);
+		mNumber.setBounds(625, 155, 230, 20);
 		message.add(mNumber);
 
 		JButton _diagnosis = new JButton("예약자 진단");
@@ -129,30 +129,31 @@ public class ManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _confirm) {
 					controlL.refresh();
-					mNumber.setText(cnt + "/40");
+					mNumber.setText("현재 진료소 인원 수: " + cnt);
 					cnt = 0;
 				}
 			}
 		});
+
 		
 		_diagnosis.setBounds(40, 30, 150, 40);
+		_diagnosis.setBackground(new Color(230,250,250));
 		_consulting.setBounds(680, 30, 150, 40);
-		_confirm.setBounds(680, 100, 150, 40);
+		_consulting.setBackground(new Color(230,250,250));
+		_confirm.setBounds(460, 100, 150, 40);
+		_confirm.setBackground(new Color(230,250,250));
+		_delete.setBounds(680, 100, 150, 40);
+		_delete.setBackground(new Color(230,250,250));
 
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
 		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-
-		_symptom = new JComboBox<String>(symptom);
-		_symptom.setBounds(460, 100, 170, 40);
-		_symptom.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 
 		message.add(_clinic);
 		message.add(_diagnosis);
 		message.add(_consulting);
 		message.add(_confirm);
 		message.add(dateChooser);
-		message.add(_symptom);
 
 		add(message);
 
