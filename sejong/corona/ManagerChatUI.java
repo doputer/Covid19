@@ -42,7 +42,7 @@ public class ManagerChatUI extends JFrame {
 		msgOut = new JTextArea();
 		msgOut.setEditable(false);
 		msgPanel = new JPanel();
-		msgInput = new JTextField(33);
+		msgInput = new JTextField(30);
 		sendBtn = new JButton("전송");
 
 		jsp = new JScrollPane(msgOut, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -50,7 +50,7 @@ public class ManagerChatUI extends JFrame {
 
 		msgPanel.setLayout(new BorderLayout());
 		msgPanel.add(msgInput, BorderLayout.WEST);
-		msgPanel.add(sendBtn, BorderLayout.EAST);
+		msgPanel.add(sendBtn, BorderLayout.CENTER);
 
 		add(idCb, BorderLayout.NORTH);
 		add(jsp, BorderLayout.CENTER);

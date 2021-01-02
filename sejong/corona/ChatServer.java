@@ -15,7 +15,7 @@ public class ChatServer {
 	private ArrayList<ChatThread> chatThreads = new ArrayList<ChatThread>();
 
 	Logger logger;
-	
+
 	public static void main(String[] args) {
 		new ChatServer().start();
 	}
@@ -24,7 +24,7 @@ public class ChatServer {
 		logger = Logger.getLogger(this.getClass().getName());
 		try {
 			serverSocket = new ServerSocket(8888);
-			logger.info("Chat Server start");
+			logger.info("채팅 서버 시작");
 			while (true) {
 				socket = serverSocket.accept();
 				ChatThread chat = new ChatThread();
@@ -32,7 +32,7 @@ public class ChatServer {
 				chat.start();
 			}
 		} catch (IOException e) {
-			logger.info("Server Start Exception!");
+			logger.info("채팅 서버 시작 오류");
 			e.printStackTrace();
 		}
 	}
@@ -53,14 +53,25 @@ public class ChatServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			while (status) {
 				try {
 					msg = inMsg.readLine();
 					m = gson.fromJson(msg, Message.class);
 
 					if (m.getType().equals("login")) {
-						loginSignal(msg);
+						logSignal(msg);
+						if (m.getId().equals("관리자")) {
+							managerLogin();
+						}
+					} else if (m.getType().equals("logout")) {
+						logSignal(msg);
+						for (ChatThread ct : chatThreads) {				
+							if (ct.m.getId().equals(m.getId())) {
+								chatThreads.remove(ct);
+								ct.interrupt();
+							}
+						}
 					} else if (m.getType().equals("user")) {
 						msgSendToUser(msg);
 					} else if (m.getType().equals("manager")) {
@@ -74,17 +85,33 @@ public class ChatServer {
 				}
 			}
 			this.interrupt();
-			logger.info(this.getName() + " Close!");
+			logger.info(this.getName() + " 종료");
 		}
 		
-		void loginSignal(String msg) {
+		void managerLogin() {
+			Vector<String> ids = new Vector<String>();
+			
 			for (ChatThread ct : chatThreads) {
+				if (!ct.m.getId().equals("관리자")) {
+					ids.add(ct.m.getId());
+				}
+			}
+			
+			for (ChatThread ct : chatThreads) {
+				if (ct.m.getId().equals("관리자")) {
+					ct.outMsg.println(gson.toJson(new Message("update", ids)));
+				}
+			}
+		}
+
+		void logSignal(String msg) {
+			for (ChatThread ct : chatThreads) {				
 				if (ct.m.getId().equals("관리자")) {
 					ct.outMsg.println(msg);
 				}
 			}
 		}
-		
+
 		void msgSendToUser(String msg) {
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals(m.getReceiver())) {
@@ -94,7 +121,7 @@ public class ChatServer {
 				}
 			}
 		}
-		
+
 		void msgSendToManager(String msg) {
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals("관리자")) {

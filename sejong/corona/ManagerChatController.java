@@ -3,11 +3,15 @@ package sejong.corona;
 import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.Vector;
 import java.util.logging.*;
 import static java.util.logging.Level.*;
 import com.google.gson.Gson;
 
 public class ManagerChatController implements Runnable {
+	private Gson gson = new Gson();
+	
 	private final ManagerChatUI v;
 	private final ChatData chatData;
 
@@ -16,10 +20,9 @@ public class ManagerChatController implements Runnable {
 	private BufferedReader inMsg = null;
 	private PrintWriter outMsg = null;
 
-	private Gson gson = new Gson();
 	private Socket socket;
-	private Message m = new Message("", "", "", "");
-	private boolean status = true;
+	private Message m;
+	private boolean status;
 	private Thread thread;
 
 	public ManagerChatController(ChatData chatData, ManagerChatUI v) {
@@ -55,18 +58,18 @@ public class ManagerChatController implements Runnable {
 	public void connectServer() {
 		try {
 			socket = new Socket("127.0.0.1", 8888);
-			logger.log(INFO, "[Client]Server Connect!");
+			logger.log(INFO, "[Manager] 서버 연결 성공");
 
 			inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			outMsg = new PrintWriter(socket.getOutputStream(), true);
 
-			m = new Message("관리자", "", "", "login"); // 관리자 로그인이 필요하면 추후에 수정할 것
+			m = new Message("관리자", "", "", "login");
 			outMsg.println(gson.toJson(m));
 
 			thread = new Thread(this);
 			thread.start();
 		} catch (Exception e) {
-			logger.log(WARNING, "[MultiChatUI]connectServer() Exception Occur!");
+			logger.log(WARNING, "[Manager] 서버 연결 실패");
 			e.printStackTrace();
 		}
 	}
@@ -80,17 +83,23 @@ public class ManagerChatController implements Runnable {
 				msg = inMsg.readLine();
 				m = gson.fromJson(msg, Message.class);
 
-				
-				if (m.getType().equals("login"))
-					v.uId.add(m.getId());
-				else {
-					chatData.refreshData(m.getId() + ">" + m.getMsg() + "\n");
+				if (m.getType().equals("update")) {
+					v.uId.clear();
+					v.uId.add("전체");
+					v.uId.addAll(m.getIds());
+				} else if (m.getType().equals("login")) {
+					if (!m.getId().equals("관리자"))
+						v.uId.add(m.getId());
+				} else if (m.getType().equals("logout")) {
+					v.uId.remove(m.getId());
+				} else {
+					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
 					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
 				}
 			} catch (IOException e) {
-				logger.log(WARNING, "[MultiChatUI] Message Stream Close!");
+				logger.log(WARNING, "[Manager] 메시지 스트림 종료");
 			}
 		}
-		logger.info("[MultiChatUI]" + thread.getName() + "Message Receive Thread Close!");
+		logger.info("[Manager]" + thread.getName() + " 메시지 수신 스레드 종료");
 	}
 }
