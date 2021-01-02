@@ -52,9 +52,9 @@ public class FrontUI extends JFrame {
 		userBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == userBtn) {
-					if (userUI == null) {
-						userUI = new UserUI();
-					}
+//					if (userUI == null) {
+						userUI = new UserUI(FrontUI.this);
+//					}
 					userUI.setVisible(true);
 				}
 			}
@@ -63,9 +63,9 @@ public class FrontUI extends JFrame {
 		managerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == managerBtn) {
-					if (managerView == null) {
-						managerView = new ManagerUI();
-					}
+//					if (managerView == null) {
+						managerView = new ManagerUI(FrontUI.this);
+//					}
 					managerView.setVisible(true);
 				}
 			}

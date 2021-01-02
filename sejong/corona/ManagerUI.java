@@ -32,7 +32,7 @@ public class ManagerUI extends JFrame {
 	int col = -1, row = -1;
 	public int cnt = 0;
 
-	public ManagerUI() {
+	public ManagerUI(JFrame frame) {
 		setFrame();
 		setOption();
 
@@ -51,6 +51,7 @@ public class ManagerUI extends JFrame {
 		new FontManager(this.getComponents());
 
 		setVisible(true);
+		this.setLocation(frame.getX(), frame.getY());
 		setResizable(false);
 	}
 
