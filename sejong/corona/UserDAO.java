@@ -15,7 +15,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public UserDTO getUserId(String phone) {
-		connectDB();
 		sql = "select id from user where phone = ?";
 		UserDTO user = null;
 		try {
@@ -29,6 +28,7 @@ public class UserDAO extends CovidDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		return user;
@@ -36,7 +36,6 @@ public class UserDAO extends CovidDAO {
 
 	// 핸드폰 등록이 되어있는지 조회
 	public UserDTO searchPhone(String phone) {
-		connectDB();
 		sql = "select name,phone from user where phone = ?";
 		UserDTO user = null;
 		try {
@@ -59,7 +58,6 @@ public class UserDAO extends CovidDAO {
 
 	// id가 등록되어 있는지 조회 (증상)
 	public UserDTO IsRegister(int id) {
-		connectDB();
 		sql = "select * from user_detail where id = ?";
 		UserDTO user = null;
 		try {
@@ -82,7 +80,6 @@ public class UserDAO extends CovidDAO {
 
 	// id가 등록되어 있는지 조회 (선별진료소)
 	public boolean IsChoosing(int id) {
-		connectDB();
 		sql = "select * from reserve where id = ?";
 		UserDTO user = null;
 		try {
@@ -106,7 +103,6 @@ public class UserDAO extends CovidDAO {
 
 	// 이름, 핸드폰 번호
 	public void newUser(UserDTO user) {
-		connectDB();
 		sql = "insert into user (name, phone) values(?,?)";
 
 		try {
@@ -126,7 +122,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public void newResult(int id) {
-		connectDB();
 		sql = "insert into manager_result (user_id) values(?)";
 
 		try {
@@ -145,7 +140,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public void updateUser(UserDTO user) {
-		connectDB();
 		sql = "update user set name = ? where phone = ?";
 
 		try {
@@ -166,7 +160,6 @@ public class UserDAO extends CovidDAO {
 
 	// 주소, 생년월일, 성별, 증상1234, 기타사항
 	public void originalUser(UserDTO user, UserDTO userSymptom) {
-		connectDB();
 // 사용자의 id를 가져와야함
 		sql = "insert into user_detail (id, address, birth, gender, symptom1, symptom2, symptom3, symptom4, etc) values(?,?,?,?,?,?,?,?,?)";
 
@@ -194,7 +187,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public void updateOriginalUser(UserDTO user, UserDTO userSymptom) {
-		connectDB();
 		sql = "update user_detail set address = ? , birth = ? , gender = ? , symptom1 = ? , symptom2 = ?, symptom3 = ?, symptom4 = ?, etc = ? where id = ?";
 
 		try {
@@ -221,7 +213,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public void chooseReservation(int id, String hospital, String date) {
-		connectDB();
 		sql = "insert into reserve (id, hospital, date) values (?,?,?)";
 
 		try {
@@ -242,7 +233,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public void updateReservation(int id, String hospital, String date) {
-		connectDB();
 		sql = "update reserve set hospital = ? , date = ? where id = ?";
 
 		try {
@@ -263,7 +253,6 @@ public class UserDAO extends CovidDAO {
 	}
 
 	public UserDTO checkReservation(int id) {
-		connectDB();
 		sql = "select * from user left join reserve on user.id = reserve.id where reserve.id = ?";
 
 		UserDTO user = null;
@@ -284,13 +273,4 @@ public class UserDAO extends CovidDAO {
 		else
 			return null;
 	}
-
-	public void CountReservation() {
-
-	}
-
-	public static void main(String[] args) {
-
-	}
-
 }

@@ -1,23 +1,10 @@
 package sejong.corona;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -65,7 +52,7 @@ public class UserUI extends JFrame {
 
 	UserDAO dao = new UserDAO();
 	UserDTO reservation;
-	
+
 	public UserUI(JFrame frame) {
 
 		setTitle("코로나 선별 진료소 예약 시스템");
@@ -81,7 +68,24 @@ public class UserUI extends JFrame {
 		fm.setDefaultFont(checkPnl.getComponents());
 		fm.setDefaultFont(writePnl.getComponents());
 		fm.setDefaultFont(choosePnl.getComponents());
-		
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				dao.connectDB();
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				dao.closeDB();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dao.closeDB();
+			}
+		});
+
 		setSize(640, 440);
 		this.setLocation(frame.getX(), frame.getY());
 		setVisible(true);
@@ -106,7 +110,16 @@ public class UserUI extends JFrame {
 
 						// 핸드폰 조회 시, 이미 등록되어 있는 User의 경우 update
 						if (search != null) {
-							dao.updateUser(data);
+							String options[] = { "네", "아니오" };
+							JLabel msg = new JLabel("이미 작성한 사용자입니다. 새로 작성하시겠습니까?");
+							msg.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+							int option = JOptionPane.showOptionDialog(null, msg, "알림", JOptionPane.YES_NO_OPTION,
+									JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+							if (option == JOptionPane.YES_OPTION) {
+								dao.updateUser(data);
+							} else {
+								return;
+							}
 						}
 						// New User 일 경우 새로 등록
 						else {
@@ -251,31 +264,38 @@ public class UserUI extends JFrame {
 					} else {
 
 						UserDTO dto = dao.getUserId(number);
-						id = dto.getId();
 
-						reservation = dao.checkReservation(id);
-
-						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
-						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
-								+ "</font> 입니다.</html>");
-						checkLabel3.setText(
-								"<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
-						if (reservation.getStatus() == null) {
-							checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
+						if (dto == null) {
+							JLabel msg = new JLabel("존재하지 않는 사용자 입니다.");
+							msg.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+							new JOptionPane();
+							JOptionPane.showMessageDialog(null, msg, "경고", JOptionPane.ERROR_MESSAGE);
 						} else {
-							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus()
-									+ "</font> 입니다.</html>");
-						}
-						switchPanel(reservePnl, checkPnl);
+							id = dto.getId();
 
-						name.setText("");
-						phone.setText("");
+							reservation = dao.checkReservation(id);
+
+							checkLabel1
+									.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
+							checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
+									+ "</font> 입니다.</html>");
+							checkLabel3.setText(
+									"<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
+							if (reservation.getStatus() == null) {
+								checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
+							} else {
+								checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus()
+										+ "</font> 입니다.</html>");
+							}
+							switchPanel(reservePnl, checkPnl);
+
+							name.setText("");
+							phone.setText("");
+						}
 					}
 
 				} else if (obj == cancel1Btn) {
-
-					UserUI.this.setVisible(false);
-
+					dispose();
 				} else if (obj == connect2Btn) {
 					reservation = dao.checkReservation(id);
 
@@ -325,10 +345,12 @@ public class UserUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect1Btn) {
 //					if (userChatUI == null) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", name.getText());
+					if (!name.getText().equals("")) {
+						userChatUI = new UserChatUI(UserUI.this, "문의하기", name.getText());
+						userChatUI.setVisible(true);
+					}
 //					}
 //					userChatController = new UserChatController(new ChatData(), userChatUI, name.getText());
-					userChatUI.setVisible(true);
 				}
 			}
 		});
