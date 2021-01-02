@@ -109,6 +109,12 @@ public class UserUI extends JFrame{
 						UserDTO dto = dao.getUserId(number);
 						id = dto.getId();
 						
+						if( search != null) {
+						}
+						else {
+							dao.newResult(id);
+						}
+						
 						name.setText("");
 						phone.setText("");
 						switchPanel(reservePnl, writePnl);
