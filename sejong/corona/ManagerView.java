@@ -134,7 +134,17 @@ public class ManagerView extends JFrame {
 				}
 			}
 		});
-
+		
+		JButton _delete = new JButton("삭제");
+		_delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == _delete) {
+					dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
+					controlL.refresh();
+				}
+			}
+		});
 		
 		_diagnosis.setBounds(40, 30, 150, 40);
 		_diagnosis.setBackground(new Color(230,250,250));
@@ -153,6 +163,7 @@ public class ManagerView extends JFrame {
 		message.add(_diagnosis);
 		message.add(_consulting);
 		message.add(_confirm);
+		message.add(_delete);
 		message.add(dateChooser);
 
 		add(message);

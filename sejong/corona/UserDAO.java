@@ -124,7 +124,6 @@ public class UserDAO extends CovidDAO {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< Updated upstream
 	
 	public void newResult(int id) {
 		connectDB();
@@ -145,9 +144,6 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 	
-=======
-
->>>>>>> Stashed changes
 	public void updateUser(UserDTO user) {
 		connectDB();
 		sql = "update user set name = ? where phone = ?";
