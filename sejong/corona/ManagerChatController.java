@@ -74,6 +74,11 @@ public class ManagerChatController implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void unconnectServer() {
+		outMsg.println(gson.toJson(new Message("관리자", "", "", "logout")));
+		v.msgOut.setText("");
+	}
 
 	public void run() {
 		String msg;
@@ -96,6 +101,7 @@ public class ManagerChatController implements Runnable {
 				} else if (m.getType().equals("sys")) {
 					chatData.refreshData("시스템> " + m.getMsg() + "\n");
 					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
+					v.idCb.setSelectedIndex(0);
 				} else {
 					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
 					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());

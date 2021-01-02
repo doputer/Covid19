@@ -15,13 +15,15 @@ public class ManagerChatUI extends JFrame {
 
 	public Vector<String> uId;
 	JComboBox<String> idCb;
+	
+	private ManagerChatController controller;
 
 	ManagerChatUI(JFrame frame, String title) {
 		setTitle(title);
 		setLayout(new BorderLayout());
 
 		startUI();
-		new ManagerChatController(new ChatData(), this);
+		controller = new ManagerChatController(new ChatData(), this);
 		uId.add("전체");
 		idCb.setSelectedIndex(0);
 
@@ -34,6 +36,11 @@ public class ManagerChatUI extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				super.windowClosing(e);
 				dispose();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				controller.unconnectServer();
 			}
 		});
 

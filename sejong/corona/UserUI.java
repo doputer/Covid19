@@ -66,7 +66,7 @@ public class UserUI extends JFrame {
 	UserDAO dao = new UserDAO();
 	UserDTO reservation;
 	
-	public UserUI() {
+	public UserUI(JFrame frame) {
 
 		setTitle("코로나 선별 진료소 예약 시스템");
 		setLayout(null);
@@ -83,7 +83,7 @@ public class UserUI extends JFrame {
 		fm.setDefaultFont(choosePnl.getComponents());
 		
 		setSize(640, 440);
-		setLocationRelativeTo(null);
+		this.setLocation(frame.getX(), frame.getY());
 		setVisible(true);
 		setResizable(false);
 
@@ -325,7 +325,7 @@ public class UserUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect1Btn) {
 //					if (userChatUI == null) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName());
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", name.getText());
 //					}
 //					userChatController = new UserChatController(new ChatData(), userChatUI, name.getText());
 					userChatUI.setVisible(true);
