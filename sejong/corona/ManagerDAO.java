@@ -4,16 +4,17 @@ import java.sql.*;
 import java.util.*;
 
 public class ManagerDAO extends CovidDAO {
+	ManagerView view;
 	public ManagerDAO() {
 		connectDB();
 	}
-
+	
 	public ArrayList<UserDTO> getAllUser() {
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
-		sqlSb.append("on user.id = user_detail.id ");
+		sqlSb.append("on user.id = user_detail.id_detail ");
 		sqlSb.append("left join reserve ");
-		sqlSb.append("on user.id = reserve.id");
+		sqlSb.append("on user.id = reserve.idreserve");
 
 		sql = sqlSb.toString();
 
@@ -21,7 +22,7 @@ public class ManagerDAO extends CovidDAO {
 			ArrayList<UserDTO> datas = new ArrayList<UserDTO>();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				UserDTO dto = new UserDTO();
 				dto.setId(Integer.parseInt(rs.getString("id")));
@@ -36,10 +37,11 @@ public class ManagerDAO extends CovidDAO {
 				dto.setSymptom4(rs.getString("symptom4"));
 				dto.setEtc(rs.getString("etc"));
 				dto.setHospital(rs.getString("hospital"));
-				dto.setDate(rs.getString("date"));
-				dto.setStatus(rs.getString("status"));
+				dto.setDate(rs.getString("_date"));
+				dto.setStatus(rs.getString("_status"));
 
 				datas.add(dto);
+				
 			}
 			return datas;
 		} catch (SQLException e) {
@@ -51,9 +53,9 @@ public class ManagerDAO extends CovidDAO {
 	public ArrayList<UserDTO> getUser(String hospital, String date) {
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
-		sqlSb.append("on user.id = user_detail.id ");
+		sqlSb.append("on user.id = user_detail.id_detail ");
 		sqlSb.append("left join reserve ");
-		sqlSb.append("on user.id = reserve.id ");
+		sqlSb.append("on user.id = reserve.idreserve ");
 		if (date == "") {
 			sqlSb.append("where hospital = '" + hospital + "'");
 		} else if (hospital == "") {
@@ -84,8 +86,8 @@ public class ManagerDAO extends CovidDAO {
 				dto.setSymptom4(rs.getString("symptom4"));
 				dto.setEtc(rs.getString("etc"));
 				dto.setHospital(rs.getString("hospital"));
-				dto.setDate(rs.getString("date"));
-				dto.setStatus(rs.getString("status"));
+				dto.setDate(rs.getString("_date"));
+				dto.setStatus(rs.getString("_status"));
 
 				datas.add(dto);
 			}
@@ -147,3 +149,4 @@ public class ManagerDAO extends CovidDAO {
 	}
 
 }
+

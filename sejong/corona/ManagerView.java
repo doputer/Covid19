@@ -61,6 +61,11 @@ public class ManagerView extends JFrame {
 		dateChooser.setBounds(250, 100, 170, 40);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
+		JLabel mNumber = new JLabel(cnt + "/40");
+		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		mNumber.setBounds(830, 160, 100, 20);
+		message.add(mNumber);
+		
 		JButton _diagnosis = new JButton("예약자 진단");
 		_diagnosis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,6 +94,8 @@ public class ManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _confirm) {
 					controlL.refresh();
+					mNumber.setText(cnt + "/40");
+					cnt = 0;
 				}
 			}
 		});
@@ -97,10 +104,7 @@ public class ManagerView extends JFrame {
 		_consulting.setBounds(680, 30, 150, 40);
 		_confirm.setBounds(680, 100, 150, 40);
 
-		JLabel mNumber = new JLabel(cnt + "/40");
-		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 40));
-		mNumber.setBounds(500, 30, 150, 40);
-		message.add(mNumber);
+		
 
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
