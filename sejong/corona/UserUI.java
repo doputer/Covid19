@@ -265,6 +265,12 @@ public class UserUI extends JFrame{
 				} else if (obj == cancel1Btn) {
 					
 					UserUI.this.setVisible(false);
+					
+				} else if (obj == connect2Btn) {
+					UserDTO reservation = dao.checkReservation(id);
+					
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName()); // 이 부분
+					userChatUI.setVisible(true);
 				}
 			}
 		});
@@ -368,14 +374,15 @@ public class UserUI extends JFrame{
 		checkPnl.add(confirmBtn);
 		connect2Btn.setBounds(350, 300, 100, 45);
 		connect2Btn.setBackground(new Color(230,250,230));
-		connect2Btn.addActionListener(new ActionListener() {
+		/*connect2Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect2Btn) {
 					userChatUI = new UserChatUI(UserUI.this, "문의하기", checkLabel1.getText()); // 이 부분
 					userChatUI.setVisible(true);
 				}
 			}
-		});
+		});*/
+		
 		checkPnl.add(connect2Btn);
 		
 
