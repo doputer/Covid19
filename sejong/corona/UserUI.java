@@ -64,7 +64,8 @@ public class UserUI extends JFrame {
 	UserChatController userChatController;
 
 	UserDAO dao = new UserDAO();
-
+	UserDTO reservation;
+	
 	public UserUI() {
 
 		setTitle("코로나 선별 진료소 예약 시스템");
@@ -75,15 +76,16 @@ public class UserUI extends JFrame {
 		chooseHospitalUI();
 		reserveUI();
 
-		setSize(640, 440);
-		setLocationRelativeTo(null);
-		setVisible(true);
-
 		FontManager fm = new FontManager();
 		fm.setDefaultFont(reservePnl.getComponents());
 		fm.setDefaultFont(checkPnl.getComponents());
 		fm.setDefaultFont(writePnl.getComponents());
 		fm.setDefaultFont(choosePnl.getComponents());
+		
+		setSize(640, 440);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setResizable(false);
 
 		UserUI.this.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,7 +218,7 @@ public class UserUI extends JFrame {
 						}
 
 						// 예약확인 할 정보 불러오기
-						UserDTO reservation = dao.checkReservation(id);
+						reservation = dao.checkReservation(id);
 
 						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
 						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
@@ -229,7 +231,6 @@ public class UserUI extends JFrame {
 							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus()
 									+ "</font> 입니다.</html>");
 						}
-
 						switchPanel(choosePnl, checkPnl);
 					}
 
@@ -252,7 +253,7 @@ public class UserUI extends JFrame {
 						UserDTO dto = dao.getUserId(number);
 						id = dto.getId();
 
-						UserDTO reservation = dao.checkReservation(id);
+						reservation = dao.checkReservation(id);
 
 						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
 						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
@@ -276,9 +277,9 @@ public class UserUI extends JFrame {
 					UserUI.this.setVisible(false);
 
 				} else if (obj == connect2Btn) {
-					UserDTO reservation = dao.checkReservation(id);
+					reservation = dao.checkReservation(id);
 
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName()); // 이 부분
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName());
 					userChatUI.setVisible(true);
 				}
 			}
@@ -324,7 +325,7 @@ public class UserUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect1Btn) {
 //					if (userChatUI == null) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", name.getText());
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", reservation.getName());
 //					}
 //					userChatController = new UserChatController(new ChatData(), userChatUI, name.getText());
 					userChatUI.setVisible(true);
@@ -381,20 +382,11 @@ public class UserUI extends JFrame {
 		checkPnl.add(confirmBtn);
 		connect2Btn.setBounds(350, 300, 100, 45);
 		connect2Btn.setBackground(new Color(230, 250, 230));
-		connect2Btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == connect2Btn) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", checkLabel1.getText()); // 이 부분
-					userChatUI.setVisible(true);
-				}
-			}
-		});
 		connect2Btn.setBackground(new Color(230, 250, 230));
 
 		checkPnl.add(connect2Btn);
 
 		// Text
-
 		checkLabel1 = new JLabel("");
 		checkLabel1.setBounds(170, 150, 100, 30);
 
