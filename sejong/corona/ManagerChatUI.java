@@ -35,7 +35,7 @@ public class ManagerChatUI extends JFrame {
 				dispose();
 			}
 		});
-		
+
 		new FontManager(this.getComponents());
 	}
 

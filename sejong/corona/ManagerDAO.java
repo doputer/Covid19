@@ -65,12 +65,10 @@ public class ManagerDAO extends CovidDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		sb = new StringBuilder();
-		sql = sb.append("update reserve set").append(" status = '예약완료',")
-				.append(" hospital = '" + hospital + "',")
-				.append(" date = '" + date + "'")
-				.append(" where id = " + id + ";").toString();
+		sql = sb.append("update reserve set").append(" status = '예약완료',").append(" hospital = '" + hospital + "',")
+				.append(" date = '" + date + "'").append(" where id = " + id + ";").toString();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();

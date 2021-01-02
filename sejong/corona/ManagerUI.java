@@ -18,8 +18,8 @@ public class ManagerUI extends JFrame {
 	JComboBox<String> _symptom;
 	JTable dataTbl;
 	DefaultTableModel model;
-	String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "발열", "어지러움", "기침", "오한", "기타", "선별진료소", "예약일자",
-			"예약상태", "진단결과" };
+	String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "발열", "어지러움", "기침", "오한", "기타", "선별진료소", "예약일자", "예약상태",
+			"진단결과" };
 	String contents[][] = {};
 	JDateChooser dateChooser;
 	ManagerController controlL;
@@ -28,14 +28,14 @@ public class ManagerUI extends JFrame {
 	ManagerChatUI managerChatUI;
 	String symptom[] = { UserUI.symptom1Name, UserUI.symptom2Name, UserUI.symptom3Name, UserUI.symptom4Name };
 	ManagerDAO dao;
-	
+
 	int col = -1, row = -1;
 	public int cnt = 0;
 
 	public ManagerUI() {
 		setFrame();
 		setOption();
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -47,14 +47,14 @@ public class ManagerUI extends JFrame {
 				dao.closeDB();
 			}
 		});
-		
+
 		new FontManager(this.getComponents());
 
 		setVisible(true);
 	}
-	
+
 	public Font defaultFont = new Font("맑은 고딕", Font.PLAIN, 13);
-	
+
 	public void setDefaultFont(Component[] comp) {
 		for (int x = 0; x < comp.length; x++) {
 			if (comp[x] instanceof Container)
@@ -87,15 +87,15 @@ public class ManagerUI extends JFrame {
 				return false;
 			}
 		};
-		
+
 		dataTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-		    public void valueChanged(ListSelectionEvent e) {
-		    	col = dataTbl.getSelectedColumn();
-		    	if (dataTbl.getSelectedRow() != -1)
-		    		row = dataTbl.getSelectedRow();
-		    }
+			public void valueChanged(ListSelectionEvent e) {
+				col = dataTbl.getSelectedColumn();
+				if (dataTbl.getSelectedRow() != -1)
+					row = dataTbl.getSelectedRow();
+			}
 		});
-		
+
 		dataTbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(dataTbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -151,7 +151,7 @@ public class ManagerUI extends JFrame {
 				}
 			}
 		});
-		
+
 		JButton _delete = new JButton("삭제");
 		_delete.addActionListener(new ActionListener() {
 			@Override
@@ -173,15 +173,15 @@ public class ManagerUI extends JFrame {
 				}
 			}
 		});
-		
+
 		_diagnosis.setBounds(40, 30, 150, 40);
-		_diagnosis.setBackground(new Color(230,250,250));
+		_diagnosis.setBackground(new Color(230, 250, 250));
 		_consulting.setBounds(680, 30, 150, 40);
-		_consulting.setBackground(new Color(230,250,250));
+		_consulting.setBackground(new Color(230, 250, 250));
 		_confirm.setBounds(460, 100, 150, 40);
-		_confirm.setBackground(new Color(230,250,250));
+		_confirm.setBackground(new Color(230, 250, 250));
 		_delete.setBounds(680, 100, 150, 40);
-		_delete.setBackground(new Color(230,250,250));
+		_delete.setBackground(new Color(230, 250, 250));
 
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);

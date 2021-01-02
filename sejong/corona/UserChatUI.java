@@ -39,7 +39,7 @@ public class UserChatUI extends JFrame {
 				controller.unconnectServer();
 			}
 		});
-		
+
 		new FontManager(this.getComponents());
 	}
 

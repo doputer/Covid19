@@ -78,7 +78,7 @@ public class UserUI extends JFrame {
 		setSize(640, 440);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
+
 		FontManager fm = new FontManager();
 		fm.setDefaultFont(reservePnl.getComponents());
 		fm.setDefaultFont(checkPnl.getComponents());
@@ -219,12 +219,15 @@ public class UserUI extends JFrame {
 						UserDTO reservation = dao.checkReservation(id);
 
 						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
-						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital() + "</font> 입니다.</html>");
-						checkLabel3.setText("<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
+						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
+								+ "</font> 입니다.</html>");
+						checkLabel3.setText(
+								"<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
 						if (reservation.getStatus() == null) {
 							checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
 						} else {
-							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus() + "</font> 입니다.</html>");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus()
+									+ "</font> 입니다.</html>");
 						}
 
 						switchPanel(choosePnl, checkPnl);
@@ -252,12 +255,15 @@ public class UserUI extends JFrame {
 						UserDTO reservation = dao.checkReservation(id);
 
 						checkLabel1.setText("<html><font color='blue'>" + reservation.getName() + "</font> 님</html>");
-						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital() + "</font> 입니다.</html>");
-						checkLabel3.setText("<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
+						checkLabel2.setText("<html>예약하신 선별진료소는 <font color='blue'>" + reservation.getHospital()
+								+ "</font> 입니다.</html>");
+						checkLabel3.setText(
+								"<html>예약 날짜는 <font color='blue'>" + reservation.getDate() + "</font> 입니다.</html>");
 						if (reservation.getStatus() == null) {
 							checkLabel4.setText("<html>예약 현황 <font color='blue'>예약대기</font> 입니다.</html>");
 						} else {
-							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus() + "</font> 입니다.</html>");
+							checkLabel4.setText("<html>예약 현황 <font color='blue'>" + reservation.getStatus()
+									+ "</font> 입니다.</html>");
 						}
 						switchPanel(reservePnl, checkPnl);
 

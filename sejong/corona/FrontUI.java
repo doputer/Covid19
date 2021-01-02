@@ -29,7 +29,7 @@ public class FrontUI extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		new FontManager(this.getComponents());
 
 		setSize(640, 440);
@@ -40,23 +40,23 @@ public class FrontUI extends JFrame {
 	private void startUI() {
 		userBtn = new JButton("예약자");
 		userBtn.setBounds(160, 200, 120, 50);
-		userBtn.setBackground(new Color(230,250,250));
+		userBtn.setBackground(new Color(230, 250, 250));
 		managerBtn = new JButton("관리자");
 		managerBtn.setBounds(350, 200, 120, 50);
-		managerBtn.setBackground(new Color(250,250,230));
+		managerBtn.setBackground(new Color(250, 250, 230));
 
 		img = new ImageIcon(FrontUI.class.getResource("/sejong/corona/background.png")).getImage();
 		logo = new JLabel(new ImageIcon(img));
 
 		userBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        if (e.getSource() == userBtn) {
-		            if (userUI == null) {
-		            	userUI = new UserUI();
-		            }
-		        	userUI.setVisible(true);
-		        }
-		    }
+				if (e.getSource() == userBtn) {
+					if (userUI == null) {
+						userUI = new UserUI();
+					}
+					userUI.setVisible(true);
+				}
+			}
 		});
 
 		managerBtn.addActionListener(new ActionListener() {

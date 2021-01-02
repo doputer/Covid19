@@ -71,10 +71,10 @@ public class ManagerController {
 				view.cnt++;
 			}
 		}
-		
+
 		view.mNumber.setText("현재 진료소 인원 수: " + String.valueOf(view.cnt));
 	}
-	
+
 	public String toDate(Date date) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
@@ -89,7 +89,7 @@ public class ManagerController {
 		if (day.length() == 1) {
 			day = "0" + day;
 		}
-		
+
 		return year + "-" + month + "-" + day;
 	}
 }

@@ -11,7 +11,7 @@ public class FontManager {
 	FontManager(Component[] comp) {
 		setDefaultFont(comp);
 	}
-	
+
 	FontManager(Component[] comp, Font font) {
 		this.font = font;
 		setDefaultFont(comp);

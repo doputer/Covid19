@@ -38,7 +38,7 @@ public class CovidDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<UserDTO> getUser(String hospital, String date) {
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
