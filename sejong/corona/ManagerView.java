@@ -13,7 +13,7 @@ public class ManagerView extends JFrame {
 	JTextArea textL;
 	JLabel lblmessage;
 	JComboBox<String> _clinic;
-	JComboBox _symptom;
+	JComboBox<String> _symptom;
 	JList<String> List;
 	JDateChooser dateChooser;
 	ManagerController controlL;
@@ -22,13 +22,16 @@ public class ManagerView extends JFrame {
 	ManagerChatUI managerChatUI;
 	String symptom[] = {UserView.symptom1Name, UserView.symptom2Name,UserView.symptom3Name ,UserView.symptom4Name}; 
 	public Vector<String> listVct;
+	ManagerDAO dao;
+	
+	public DefaultListModel<String> listVct;
 	
 	public int cnt = 0;
 
 	public ManagerView() {
 		setFrame();
-
 		setOption();
+		
 		setVisible(true);
 	}
 
@@ -47,14 +50,15 @@ public class ManagerView extends JFrame {
 		message.setBackground(Color.white);
 		message.setLayout(null);
 
-		listVct = new Vector<String>();
+		listVct = new DefaultListModel<String>();
 		List = new JList<String>(listVct);
 		List.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(List);
 		scroll.setBounds(10, 200, 870, 450);
 		add(scroll);
 
-		controlL = new ManagerController();
+		dao = new ManagerDAO();
+		controlL = new ManagerController(this, dao);
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -88,7 +92,8 @@ public class ManagerView extends JFrame {
 		_confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        if (e.getSource() == _confirm) {
-		        	new ManagerDAO();
+//		        	controlL.refreshAll();
+		        	controlL.refresh();
 		        }
 		    }
 		});
@@ -109,7 +114,6 @@ public class ManagerView extends JFrame {
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
 		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		_clinic.addItem("진료소");
 
 		_symptom = new JComboBox<String>(symptom);
 		_symptom.setBounds(460, 100, 170, 40);

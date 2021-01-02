@@ -4,30 +4,42 @@ import java.sql.*;
 import java.util.*;
 
 public class ManagerDAO extends CovidDAO {
-	Vector<String> items = null;
-
 	public ManagerDAO() {
 		connectDB();
 	}
 
 	public ArrayList<UserDTO> getAllUser() {
+		StringBuilder sqlSb = new StringBuilder();
+		sqlSb.append("select * from user left join user_detail ");
+		sqlSb.append("on user.id = user_detail.id ");
+		sqlSb.append("left join reserve ");
+		sqlSb.append("on user.id = reserve.id");
+
+		sql = sqlSb.toString();
+
 		try {
 			ArrayList<UserDTO> datas = new ArrayList<UserDTO>();
-			sql = "SELECT * FROM user join user_detail";
 			pstmt = conn.prepareStatement(sql);
-			items = new Vector<String>();
-			items.add("진료소");
-
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				UserDTO ma = new UserDTO();
-				ma.setId(Integer.parseInt(rs.getString("id")));
-				ma.setHospital(rs.getString("hospital"));
-				ma.setDate(rs.getString("_date"));
-				ma.setSymptom1(rs.getString("_status"));
 
-				// datas.addAll(ma);
-				items.add(String.valueOf(rs.getInt("id")));
+			while (rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setId(Integer.parseInt(rs.getString("id")));
+				dto.setName(rs.getString("name"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setAddress(rs.getString("address"));
+				dto.setBirth(rs.getString("birth"));
+				dto.setGender(rs.getString("gender"));
+				dto.setSymptom1(rs.getString("symptom1"));
+				dto.setSymptom2(rs.getString("symptom2"));
+				dto.setSymptom3(rs.getString("symptom3"));
+				dto.setSymptom4(rs.getString("symptom4"));
+				dto.setEtc(rs.getString("etc"));
+				dto.setHospital(rs.getString("hospital"));
+				dto.setDate(rs.getString("date"));
+				dto.setStatus(rs.getString("status"));
+
+				datas.add(dto);
 			}
 			return datas;
 		} catch (SQLException e) {
@@ -36,24 +48,39 @@ public class ManagerDAO extends CovidDAO {
 		return null;
 	}
 
-	public ArrayList<UserDTO> getUser() {
+	public ArrayList<UserDTO> getUser(String hospital) {
+		StringBuilder sqlSb = new StringBuilder();
+		sqlSb.append("select * from user left join user_detail ");
+		sqlSb.append("on user.id = user_detail.id ");
+		sqlSb.append("left join reserve ");
+		sqlSb.append("on user.id = reserve.id ");
+		sqlSb.append("where hospital = '" + hospital + "'");
+
+		sql = sqlSb.toString();
+
 		try {
 			ArrayList<UserDTO> datas = new ArrayList<UserDTO>();
-			sql = "SELECT ?, ?, ? FROM reserve";
 			pstmt = conn.prepareStatement(sql);
-			items = new Vector<String>();
-			items.add("진료소");
-
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				UserDTO ma = new UserDTO();
-				ma.setId(Integer.parseInt(rs.getString("id")));
-				ma.setHospital(rs.getString("hospital"));
-				ma.setDate(rs.getString("_date"));
-				ma.setSymptom1(rs.getString("_status"));
 
-				// datas.addAll(ma);
-				items.add(String.valueOf(rs.getInt("id")));
+			while (rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setId(Integer.parseInt(rs.getString("id")));
+				dto.setName(rs.getString("name"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setAddress(rs.getString("address"));
+				dto.setBirth(rs.getString("birth"));
+				dto.setGender(rs.getString("gender"));
+				dto.setSymptom1(rs.getString("symptom1"));
+				dto.setSymptom2(rs.getString("symptom2"));
+				dto.setSymptom3(rs.getString("symptom3"));
+				dto.setSymptom4(rs.getString("symptom4"));
+				dto.setEtc(rs.getString("etc"));
+				dto.setHospital(rs.getString("hospital"));
+				dto.setDate(rs.getString("date"));
+				dto.setStatus(rs.getString("status"));
+
+				datas.add(dto);
 			}
 			return datas;
 		} catch (SQLException e) {
