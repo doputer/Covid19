@@ -29,7 +29,7 @@ public class ManagerView extends JFrame {
 	String symptom[] = { UserUI.symptom1Name, UserUI.symptom2Name, UserUI.symptom3Name, UserUI.symptom4Name };
 	ManagerDAO dao;
 	
-	int col = 0, row = 0;
+	int col = -1, row = -1;
 	public int cnt = 0;
 
 	public ManagerView() {
@@ -105,9 +105,11 @@ public class ManagerView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _diagnosis) {
 //					if (diagnosisUI == null) {
-						diagnosisUI = new DiagnosisUI(ManagerView.this, "진단", ManagerView.this);
 //					}
-					diagnosisUI.setVisible(true);
+					if (row < dataTbl.getRowCount() && row > -1) {
+						diagnosisUI = new DiagnosisUI(ManagerView.this, "진단", ManagerView.this);
+						diagnosisUI.setVisible(true);
+					}
 					_diagnosis.requestFocus();
 				}
 			}
@@ -140,8 +142,10 @@ public class ManagerView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _delete) {
-					dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
-					controlL.refresh();
+					if (row < dataTbl.getRowCount() && row > -1) {
+						dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
+						controlL.refresh();
+					}
 				}
 			}
 		});

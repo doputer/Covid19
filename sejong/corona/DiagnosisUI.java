@@ -76,7 +76,9 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		hospitalCb.setBounds(40, 320, 120, 30);
-		hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
+		
+		if (row > view.dataTbl.getRowCount())
+			hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
