@@ -8,18 +8,21 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.util.Vector;
 
 public class ManagerView extends JFrame {
 	JTextArea textL;
 	JLabel lblmessage;
-	JComboBox _clinic;
+	JComboBox<String> _clinic;
 	JComboBox _symptom;
 	JList<String> List;
 	JDateChooser dateChooser;
-//	ManagerController controlL;
+	ManagerController controlL;
 	
 	DiagnosisUI diagnosisUI;
 	ManagerChatUI managerChatUI;
+	
+	public Vector<String> listVct;
 	
 	public int cnt = 0;
 
@@ -45,13 +48,14 @@ public class ManagerView extends JFrame {
 		message.setBackground(Color.white);
 		message.setLayout(null);
 
-		List = new JList<String>();
+		listVct = new Vector<String>();
+		List = new JList<String>(listVct);
 		List.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(List);
 		scroll.setBounds(10, 200, 870, 450);
 		add(scroll);
 
-//		controlL = new ManagerController(this);
+		controlL = new ManagerController();
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -82,6 +86,13 @@ public class ManagerView extends JFrame {
 		    }
 		});
 		JButton _confirm = new JButton("예약자 조회");
+		_confirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		        if (e.getSource() == _confirm) {
+		        	new ManagerDAO();
+		        }
+		    }
+		});
 
 		_diagnosis.setBounds(40, 30, 150, 40);
 		_consulting.setBounds(680, 30, 150, 40);
@@ -96,7 +107,7 @@ public class ManagerView extends JFrame {
 		mNumber.setBounds(500, 30, 150, 40);
 		message.add(mNumber);
 
-		_clinic = new JComboBox();
+		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
 		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		_clinic.addItem("진료소");

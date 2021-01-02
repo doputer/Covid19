@@ -22,7 +22,7 @@ public class UserDTO {
     	return id;
 	}
     public void setId(int prid) {
-        this.id = id;
+        this.id = prid;
     }
     
     public String getName() {

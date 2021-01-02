@@ -2,30 +2,12 @@ package sejong.corona;
 
 import java.sql.*;
 import java.util.*;
-import java.awt.*;
-import javax.swing.*;
 
-public class ManagerDAO {
-	String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://127.0.0.1/Covid?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	Connection conn = null;
-
-	PreparedStatement pstmt;
-	ResultSet rs;
-
+public class ManagerDAO extends CovidDAO {
 	Vector<String> items = null;
-	String sql = "";
 
 	public ManagerDAO() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
-			System.out.println("드라이버 연결 성공!");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		connectDB();
 	}
 
 	public ArrayList<UserDTO> getAllUser() {
