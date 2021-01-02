@@ -1,6 +1,5 @@
 package sejong.corona;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -8,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -121,10 +118,10 @@ public class UserView extends JFrame {
 
 	private void backGround(int backNum, JPanel p) {
 		if (backNum == 1) {
-			img = new ImageIcon(UserView.class.getResource("/background.png")).getImage();
+			img = new ImageIcon(UserView.class.getResource("/sejong/corona/background.png")).getImage();
 
 		} else if (backNum == 2) {
-			img = new ImageIcon(UserView.class.getResource("/background2.png")).getImage();
+			img = new ImageIcon(UserView.class.getResource("/sejong/corona/background2.png")).getImage();
 		}
 		logo = new JLabel(new ImageIcon(img));
 		logo.setBounds(0, 0, 640, 440);
