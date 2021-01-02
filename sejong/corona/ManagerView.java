@@ -1,4 +1,3 @@
-package sejong.corona;
 
 import javax.swing.JFrame;
 
@@ -21,7 +20,7 @@ public class ManagerView extends JFrame {
 	
 	DiagnosisUI diagnosisUI;
 	ManagerChatUI managerChatUI;
-	
+	String symptom[] = {UserView.symptom1Name, UserView.symptom2Name,UserView.symptom3Name ,UserView.symptom4Name}; 
 	public Vector<String> listVct;
 	
 	public int cnt = 0;
@@ -112,10 +111,9 @@ public class ManagerView extends JFrame {
 		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		_clinic.addItem("진료소");
 
-		_symptom = new JComboBox();
+		_symptom = new JComboBox<String>(symptom);
 		_symptom.setBounds(460, 100, 170, 40);
 		_symptom.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		_symptom.addItem("증상");
 
 		message.add(_clinic);
 		message.add(_diagnosis);

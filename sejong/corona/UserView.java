@@ -1,4 +1,3 @@
-package sejong.corona;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -45,7 +44,22 @@ public class UserView extends JFrame {
 	// 예약 인원 수 (출력)
 	protected JRadioButton gender[];
 	// 성별
-	protected JCheckBox symptom1, symptom2, symptom3, symptom4;
+	public static JCheckBox symptom1;
+
+	public static JCheckBox symptom2;
+
+	public static JCheckBox symptom3;
+
+	public static JCheckBox symptom4;
+	
+	public static String symptom1Name = "발열";
+
+	public static String symptom2Name = "어지러움";
+
+	public static String symptom3Name = "기침";
+
+	public static String symptom4Name = "오한";
+	
 	// 증상
 	protected JDateChooser date;
 	// 캘린더
@@ -106,10 +120,10 @@ public class UserView extends JFrame {
 
 	private void backGround(int backNum, JPanel p) {
 		if (backNum == 1) {
-			img = new ImageIcon(UserView.class.getResource("/sejong/corona/background.png")).getImage();
+			img = new ImageIcon(UserView.class.getResource("/background.png")).getImage();
 
 		} else if (backNum == 2) {
-			img = new ImageIcon(UserView.class.getResource("/sejong/corona/background2.png")).getImage();
+			img = new ImageIcon(UserView.class.getResource("/background2.png")).getImage();
 		}
 		logo = new JLabel(new ImageIcon(img));
 		logo.setBounds(0, 0, 640, 440);
@@ -306,10 +320,10 @@ public class UserView extends JFrame {
 		gender[1].setSelected(true);
 
 		// Checkbox
-		symptom1 = new JCheckBox("발열");
-		symptom2 = new JCheckBox("어지러움");
-		symptom3 = new JCheckBox("기침");
-		symptom4 = new JCheckBox("오한");
+		symptom1 = new JCheckBox(symptom1Name);
+		symptom2 = new JCheckBox(symptom2Name);
+		symptom3 = new JCheckBox(symptom3Name);
+		symptom4 = new JCheckBox(symptom4Name);
 
 		symptom1.setBounds(390, 130, 50, 30);
 		symptom1.setBackground(Color.WHITE);
