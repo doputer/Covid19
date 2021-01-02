@@ -62,6 +62,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 					String date = view.controlL.toDate(dateChooser.getDate());
 					
 					view.dao.updateUser(id, result, hospital, date);
+					view.cnt = 0;
 					view.controlL.refresh();
 					dispose();
 				}
@@ -80,9 +81,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		hospitalCb.setBounds(40, 320, 120, 30);
-		
-		if (row > view.dataTbl.getRowCount())
-			hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
+		hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -91,7 +90,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 		
 		Calendar calendar = new GregorianCalendar();
 		String date[] = view.dataTbl.getValueAt(row, 12).toString().split("-");
-		calendar.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+		calendar.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[2]));
 		dateChooser.setCalendar(calendar);
 		
 		add(nameTf);

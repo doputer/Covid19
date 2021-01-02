@@ -50,6 +50,19 @@ public class ManagerView extends JFrame {
 
 		setVisible(true);
 	}
+	
+	public Font defaultFont = new Font("맑은 고딕", Font.PLAIN, 13);
+	
+	public void setDefaultFont(Component[] comp) {
+		for (int x = 0; x < comp.length; x++) {
+			if (comp[x] instanceof Container)
+				setDefaultFont(((Container) comp[x]).getComponents());
+			try {
+				comp[x].setFont(defaultFont);
+			} catch (Exception e) {
+			}
+		}
+	}
 
 	public void setFrame() {
 		setTitle("코로나 선별진료소 관리 시스템");
@@ -130,9 +143,9 @@ public class ManagerView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _confirm) {
-					controlL.refresh();
 					mNumber.setText("현재 진료소 인원 수: " + cnt);
 					cnt = 0;
+					controlL.refresh();
 				}
 			}
 		});
@@ -144,6 +157,7 @@ public class ManagerView extends JFrame {
 				if (e.getSource() == _delete) {
 					if (row < dataTbl.getRowCount() && row > -1) {
 						dao.deleteUser(Integer.parseInt(dataTbl.getValueAt(row, 0).toString()));
+						cnt = 0;
 						controlL.refresh();
 					}
 				}
