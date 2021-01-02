@@ -252,7 +252,7 @@ public class UserUI extends JFrame{
 						UserDTO reservation = dao.checkReservation(id);
 						
 						checkLabel1.setText(reservation.getName() + "    님");
-						checkLabel2.setText("예약하신 선별진료소는        " + reservation.getHospital() +  "                    입니다.");
+						checkLabel2.setText("예약하신 선별진료소는        " + reservation.getHospital() +  "                입니다.");
 						checkLabel3.setText("예약 날짜는         " + reservation.getDate() +"            입니다.");
 						if( reservation.getStatus() == null) {
 							checkLabel4.setText("예약 현황            예약 미승인               입니다.");
@@ -260,6 +260,9 @@ public class UserUI extends JFrame{
 							checkLabel4.setText("예약 현황            " + reservation.getStatus() + "               입니다.");
 						}
 						switchPanel(reservePnl, checkPnl);
+						
+						name.setText("");
+						phone.setText("");
 					}
 					
 				} else if (obj == cancel1Btn) {
@@ -374,14 +377,6 @@ public class UserUI extends JFrame{
 		checkPnl.add(confirmBtn);
 		connect2Btn.setBounds(350, 300, 100, 45);
 		connect2Btn.setBackground(new Color(230,250,230));
-		/*connect2Btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == connect2Btn) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", checkLabel1.getText()); // 이 부분
-					userChatUI.setVisible(true);
-				}
-			}
-		});*/
 		
 		checkPnl.add(connect2Btn);
 		
@@ -392,7 +387,7 @@ public class UserUI extends JFrame{
 		checkLabel1.setBounds(170, 150, 100, 30);
 		
 		checkLabel2 = new JLabel("");
-		checkLabel2.setBounds(170, 170, 400, 30);
+		checkLabel2.setBounds(170, 170, 500, 30);
 		
 		checkLabel3 = new JLabel("");
 		checkLabel3.setBounds(170, 200, 300, 30);
