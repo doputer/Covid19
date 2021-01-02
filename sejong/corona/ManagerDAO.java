@@ -1,5 +1,7 @@
 package sejong.corona;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.*;
 
@@ -7,7 +9,7 @@ public class ManagerDAO extends CovidDAO {
 	ManagerView view;
 
 	public ManagerDAO() {
-		connectDB();
+//		connectDB();
 	}
 
 	public ArrayList<UserDTO> getAllUser() {
@@ -42,7 +44,6 @@ public class ManagerDAO extends CovidDAO {
 				dto.setStatus(rs.getString("status"));
 
 				datas.add(dto);
-
 			}
 			return datas;
 		} catch (SQLException e) {

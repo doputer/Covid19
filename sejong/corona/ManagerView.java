@@ -29,6 +29,18 @@ public class ManagerView extends JFrame {
 	public ManagerView() {
 		setFrame();
 		setOption();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				dao.connectDB();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dao.closeDB();
+			}
+		});
 
 		setVisible(true);
 	}

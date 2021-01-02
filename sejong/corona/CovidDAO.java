@@ -26,9 +26,13 @@ public class CovidDAO {
 
 	public void closeDB() {
 		try {
-			pstmt.close();
-			rs.close();
-			conn.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (rs != null)
+				rs.close();
+			if (conn != null)
+				conn.close();
+			System.out.println("드라이버 종료 성공");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
