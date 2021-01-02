@@ -117,21 +117,51 @@ public class ChatServer {
 		}
 
 		void msgSendToUser(String msg) {
+			boolean log = false;
+			
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals(m.getReceiver())) {
 					ct.outMsg.println(msg);
+					log = true;
 				} else if (ct.m.getId().equals(m.getId())) {
 					ct.outMsg.println(msg);
+				}
+			}
+			
+			if (!log) {
+				for (ChatThread ct : chatThreads) {
+					if (ct.m.getId().equals(m.getId())) {
+						m = gson.fromJson(msg, Message.class);
+						m.setMsg("해당 사용자가 존재하지 않습니다.");
+						m.setType("sys");
+						msg = gson.toJson(m, Message.class);
+						ct.outMsg.println(msg);
+					}
 				}
 			}
 		}
 
 		void msgSendToManager(String msg) {
+			boolean log = false;
+			
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals("관리자")) {
 					ct.outMsg.println(msg);
+					log = true;
 				} else if (ct.m.getId().equals(m.getId())) {
 					ct.outMsg.println(msg);
+				}
+			}
+			
+			if (!log) {
+				for (ChatThread ct : chatThreads) {
+					if (ct.m.getId().equals(m.getId())) {
+						m = gson.fromJson(msg, Message.class);
+						m.setMsg("관리자가 부재 중 입니다.");
+						m.setType("sys");
+						msg = gson.toJson(m, Message.class);
+						ct.outMsg.println(msg);
+					}
 				}
 			}
 		}

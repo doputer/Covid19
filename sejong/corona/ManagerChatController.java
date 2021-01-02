@@ -93,6 +93,9 @@ public class ManagerChatController implements Runnable {
 						v.uId.add(m.getId());
 				} else if (m.getType().equals("logout")) {
 					v.uId.remove(m.getId());
+				} else if (m.getType().equals("sys")) {
+					chatData.refreshData("시스템> " + m.getMsg() + "\n");
+					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
 				} else {
 					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
 					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());

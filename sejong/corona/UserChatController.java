@@ -94,8 +94,13 @@ public class UserChatController extends Thread {
 				msg = inMsg.readLine();
 				m = gson.fromJson(msg, Message.class);
 
-				chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
-				view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
+				if (m.getType().equals("sys")) {
+					chatData.refreshData("시스템> " + m.getMsg() + "\n");
+					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
+				} else {
+					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
+					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
+				}
 			} catch (IOException e) {
 				logger.log(WARNING, "[User] 메시지 스트림 종료");
 			}
