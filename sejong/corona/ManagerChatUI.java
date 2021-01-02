@@ -26,6 +26,7 @@ public class ManagerChatUI extends JFrame {
 		idCb.setSelectedIndex(0);
 
 		setSize(400, 700);
+		setResizable(false);
 
 		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
 		addWindowListener(new WindowAdapter() {

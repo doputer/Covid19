@@ -24,8 +24,9 @@ public class UserChatUI extends JFrame {
 
 		controller = new UserChatController(new ChatData(), this, name);
 
-		setSize(400, 440);
 		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
+		setSize(400, 440);
+		setResizable(false);
 
 		addWindowListener(new WindowAdapter() {
 			@Override

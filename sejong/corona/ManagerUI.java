@@ -51,6 +51,7 @@ public class ManagerUI extends JFrame {
 		new FontManager(this.getComponents());
 
 		setVisible(true);
+		setResizable(false);
 	}
 
 	public Font defaultFont = new Font("맑은 고딕", Font.PLAIN, 13);

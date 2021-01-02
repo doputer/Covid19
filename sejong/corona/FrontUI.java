@@ -34,6 +34,7 @@ public class FrontUI extends JFrame {
 
 		setSize(640, 440);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setVisible(true);
 	}
 

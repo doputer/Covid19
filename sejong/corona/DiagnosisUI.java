@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class DiagnosisUI extends JDialog implements ActionListener {
+public class DiagnosisUI extends JFrame implements ActionListener {
 	JTextField nameTf;
 	JTextArea diagnosisTa;
 	JComboBox<String> hospitalCb, dateCb;
@@ -22,7 +22,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 	int row, col;
 
 	DiagnosisUI(JFrame frame, String title, ManagerUI view) { // 파라미터로 예약자 정보 가져오기
-		super(frame, title);
+		setTitle(title);
 		setLayout(null);
 
 		this.view = view;
