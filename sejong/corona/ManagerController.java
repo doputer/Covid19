@@ -15,6 +15,7 @@ public class ManagerController {
 		this.view = view;
 		this.dao = dao;
 	}
+
 	private Vector<String> makeInfo(UserDTO dto) {
 		Vector<String> row = new Vector<String>();
 		row.add(String.valueOf(dto.getId()));
@@ -31,90 +32,68 @@ public class ManagerController {
 		row.add(dto.getHospital());
 		row.add(dto.getDate());
 		row.add(dto.getStatus());
-	private String makeInfo(UserDTO dto) {
-		StringBuilder sb = new StringBuilder();
-		
-		return sb.toString();
-	}
-	
-	private String makeDefualtInfO() {
-		StringBuilder sb = new StringBuilder();
-		
+
 		return row;
 	}
 
 	public void refresh() {
-//		view.model.setRowCount(0);
+		view.model.setRowCount(0);
 		ArrayList<UserDTO> dtos = new ArrayList<UserDTO>();
 
 		if (view._clinic.getSelectedItem().toString().equals("전체") && view.dateChooser.getDate() == null) {
 			dtos = dao.getAllUser();
 
 			for (UserDTO dto : dtos) {
-<<<<<<< HEAD
 				view.model.addRow(makeInfo(dto));
-=======
-				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
-		}
-		else if (view._clinic.getSelectedItem().toString().equals("전체")) {
+		} else if (view._clinic.getSelectedItem().toString().equals("전체")) {
 			Calendar calendar = new GregorianCalendar();
 			calendar.setTime(view.dateChooser.getDate());
-			
+
 			String year = String.valueOf(calendar.get(Calendar.YEAR));
 			String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
 			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-			
+
 			if (month.length() == 1) {
 				month = "0" + month;
 			}
 			if (day.length() == 1) {
 				day = "0" + day;
 			}
-			
+
 			dtos = dao.getUser("", year + "-" + month + "-" + day);
-			
+
 			for (UserDTO dto : dtos) {
-<<<<<<< HEAD
 				view.model.addRow(makeInfo(dto));
-=======
-				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
 		} else if (view.dateChooser.getDate() == null) {
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), "");
 
 			for (UserDTO dto : dtos) {
-<<<<<<< HEAD
 				view.model.addRow(makeInfo(dto));
-=======
-				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
-		}
-		else {
+		} else {
 			Calendar calendar = new GregorianCalendar();
 			calendar.setTime(view.dateChooser.getDate());
-			
+
 			String year = String.valueOf(calendar.get(Calendar.YEAR));
 			String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
 			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-			
+
 			if (month.length() == 1) {
 				month = "0" + month;
 			}
 			if (day.length() == 1) {
 				day = "0" + day;
 			}
-			
+
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), year + "-" + month + "-" + day);
 
 			for (UserDTO dto : dtos) {
-<<<<<<< HEAD
 				view.model.addRow(makeInfo(dto));
-=======
-				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
 		}
