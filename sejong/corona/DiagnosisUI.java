@@ -1,10 +1,10 @@
-package sejong.corona;
-
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,8 +42,10 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 
 	private void startUI() {
 		nameTf = new JTextField(10); // 추후에 수정
-		nameTf.setBounds(40, 20, 120, 30);
-		nameTf.setText(view.dataTbl.getValueAt(row, 1).toString());
+		nameTf.setBounds(40, 20, 260, 30);
+		nameTf.setBackground(Color.white);
+		nameTf.setText("선택한 예약자: " + view.dataTbl.getValueAt(row, 1).toString());
+		nameTf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		nameTf.setEditable(false);
 		nameTf.setHorizontalAlignment(JLabel.CENTER);
 		diagnosisTa = new JTextArea();
