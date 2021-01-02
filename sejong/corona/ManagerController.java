@@ -97,5 +97,10 @@ public class ManagerController {
 				view.cnt++;
 			}
 		}
+
+		if (view.dataTbl.getRowCount() >= 0) {
+			System.out.print(view.row);
+			System.out.print(view.col);
+		}
 	}
 }

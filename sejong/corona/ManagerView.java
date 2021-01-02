@@ -1,6 +1,8 @@
 package sejong.corona;
 
 import javax.swing.JFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -15,6 +17,10 @@ public class ManagerView extends JFrame {
 	JComboBox<String> _clinic;
 	JComboBox<String> _symptom;
 	JTable dataTbl;
+	DefaultTableModel model;
+	String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "발열", "어지러움", "기침", "오한", "기타", "선별진료소", "예약일자",
+			"예약상태" };
+	String contents[][] = {};
 	JDateChooser dateChooser;
 	ManagerController controlL;
 
@@ -22,7 +28,8 @@ public class ManagerView extends JFrame {
 	ManagerChatUI managerChatUI;
 	String symptom[] = { UserUI.symptom1Name, UserUI.symptom2Name, UserUI.symptom3Name, UserUI.symptom4Name };
 	ManagerDAO dao;
-	public DefaultTableModel model;
+	
+	int col, row;
 
 	public int cnt = 0;
 
@@ -59,15 +66,22 @@ public class ManagerView extends JFrame {
 		message.setBackground(Color.white);
 		message.setLayout(null);
 
-		String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "증상1", "증상2", "증상3", "증상4", "기타", "선별진료소", "예약일자",
-				"예약상태" };
-		model = new DefaultTableModel(null, header);
+		model = new DefaultTableModel(contents, header);
 		dataTbl = new JTable(model) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		
+		dataTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    public void valueChanged(ListSelectionEvent e) {
+		    	col = dataTbl.getSelectedColumn();
+		    	if (dataTbl.getSelectedRow() != -1)
+		    		row = dataTbl.getSelectedRow();
+		    }
+		});
+		
 		dataTbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(dataTbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -112,6 +126,7 @@ public class ManagerView extends JFrame {
 		});
 		JButton _confirm = new JButton("예약자 조회");
 		_confirm.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _confirm) {
 					controlL.refresh();
@@ -120,7 +135,7 @@ public class ManagerView extends JFrame {
 				}
 			}
 		});
-
+		
 		_diagnosis.setBounds(40, 30, 150, 40);
 		_consulting.setBounds(680, 30, 150, 40);
 		_confirm.setBounds(680, 100, 150, 40);
