@@ -65,10 +65,6 @@ public class TriageRoomAPI extends Thread {
 		v.sort(String.CASE_INSENSITIVE_ORDER);
 		v.add(0, "전체");
 		
-		// 테스트
-		v.add(1, "아산병원");
-		v.add(2, "세종병원");
-		
 		this.interrupt();
 	}
 

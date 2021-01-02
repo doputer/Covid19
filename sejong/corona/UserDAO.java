@@ -1,21 +1,9 @@
 package sejong.corona;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class UserDAO {
-	
-	String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://127.0.0.1:1105/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs;
-	
+public class UserDAO extends CovidDAO {
 	Vector<String> items = null;
 	String sql;
 	
@@ -25,34 +13,7 @@ public class UserDAO {
 		items = new Vector<String>();
 		items.add("");
 	}
-	
-	
-	public void connectDB() {
-		try {
-			String id = "root";
-			String pw = "971105";
-			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, id, pw);
-			System.out.println("서버 연결 성공");
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void closeDB() {
-		try {
-			pstmt.close();
-			rs.close();
-			conn.close();
-			System.out.println("서버 종료");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
+
 	public UserDTO getUserId(String phone) {
 		connectDB();
 		sql = "select id from user where phone = ?";
