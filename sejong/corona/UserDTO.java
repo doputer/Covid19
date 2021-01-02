@@ -2,139 +2,182 @@ package sejong.corona;
 
 public class UserDTO {
 	private int id;
-	private String name;
-	private String phone;
-	private String address;
-	private String birth;
-	private String gender;
-	private String Symptom1;
-	private String Symptom2;
-	private String Symptom3;
-	private String Symptom4;
-	private String etc;
-	private String hospital;
-	private String date;
-	private String status;
-	private String result;
+   private String name;
+   private String phone;
+   private String address;
+   private String birth;
+   private String gender;
+   private String symptom1;
+   private String symptom2;
+   private String symptom3;
+   private String symptom4;
+   private String etc;
+   private String hospital;
+   private String date;
+   private String status;
+   private String result;
+   
+   public UserDTO() {}
+   
+
+   public UserDTO(int id) {
+	   this.id = id;
+   }
+   
+   public UserDTO(String name, String phone) {
+	   this.name = name;
+	   this.phone = phone;
+   }
+   
+   
+   public UserDTO(String hospital, String date, String status) {
+	   this.hospital = hospital;
+	   this.date = date;
+	   this.status = status;
+   }
+   
+   public UserDTO(String name, String hospital, String date, String status) {
+	   this.name = name;
+	   this.hospital = hospital;
+	   this.date = date;
+	   this.status = status;
+   }
+   
+   public UserDTO(int id, String address, String birth, String gender) {
+	   this.id = id;
+	   this.address = address;
+	   this.birth = birth;
+	   this.gender = gender;
+   }
+   
+   public UserDTO(String symptom1, String symptom2, String symptom3, String symptom4, String etc) {
+	   this.symptom1 = symptom1;
+	   this.symptom2 = symptom2;
+	   this.symptom3 = symptom3;
+	   this.symptom4 = symptom4;
+	   this.etc = etc;
+   }
+   
 
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public String getPhone() {
-		return phone;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+   public String getPhone() {
+      return phone;
+   }
 
-	public String getAddress() {
-		return address;
-	}
+   public void setPhone(String phone) {
+      this.phone = phone;
+   }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+   public String getAddress() {
+      return address;
+   }
 
-	public String getBirth() {
-		return birth;
-	}
+   public void setAddress(String address) {
+      this.address = address;
+   }
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+   public String getBirth() {
+      return birth;
+   }
 
-	public String getGender() {
-		return gender;
-	}
+   public void setBirth(String birth) {
+      this.birth = birth;
+   }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+   public String getGender() {
+      return gender;
+   }
 
-	public String getSymptom1() {
-		return Symptom1;
-	}
+   public void setGender(String gender) {
+      this.gender = gender;
+   }
 
-	public void setSymptom1(String Symptom1) {
-		this.Symptom1 = Symptom1;
-	}
+   public String getSymptom1() {
+      return symptom1;
+   }
 
+   public void setSymptom1(String symptom1) {
+      this.symptom1 = symptom1;
+   }
+  
 	public String getSymptom2() {
-		return Symptom2;
+		return symptom2;
 	}
-
-	public void setSymptom2(String Symptom2) {
-		this.Symptom2 = Symptom2;
+	
+	public void setSymptom2(String symptom2) {
+		this.symptom2 = symptom2;
 	}
-
+	
 	public String getSymptom3() {
-		return Symptom3;
+		return symptom3;
 	}
-
-	public void setSymptom3(String Symptom3) {
-		this.Symptom3 = Symptom3;
+	
+	public void setSymptom3(String symptom3) {
+		this.symptom3 = symptom3;
 	}
-
+	
 	public String getSymptom4() {
-		return Symptom4;
+		return symptom4;
+	}
+	
+	public void setSymptom4(String symptom4) {
+		this.symptom4 = symptom4;
 	}
 
-	public void setSymptom4(String Symptom4) {
-		this.Symptom4 = Symptom4;
-	}
+   public String getEtc() {
+      return etc;
+   }
 
-	public String getEtc() {
-		return etc;
-	}
+   public void setEtc(String etc) {
+      this.etc = etc;
+   }
 
-	public void setEtc(String etc) {
-		this.etc = etc;
-	}
+   public String getHospital() {
+      return hospital;
+   }
 
-	public String getHospital() {
-		return hospital;
-	}
+   public void setHospital(String hospital) {
+      this.hospital = hospital;
+   }
 
-	public void setHospital(String hospital) {
-		this.hospital = hospital;
-	}
+   public String getDate() {
+      return date;
+   }
 
-	public String getDate() {
-		return date;
-	}
+   public void setDate(String date) {
+      this.date = date;
+   }
 
-	public void setDate(String _date) {
-		this.date = _date;
-	}
+   public String getStatus() {
+      return status;
+   }
 
-	public String getStatus() {
-		return status;
-	}
+   public void setStatus(String status) {
+      this.status = status;
+   }
 
-	public void setStatus(String _status) {
-		this.status = _status;
-	}
+   public String getResult() {
+      return result;
+   }
 
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
+   public void setResult(String result) {
+      this.result = result;
+   }
 
 }

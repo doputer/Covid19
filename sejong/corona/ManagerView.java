@@ -20,7 +20,7 @@ public class ManagerView extends JFrame {
 
 	DiagnosisUI diagnosisUI;
 	ManagerChatUI managerChatUI;
-	String symptom[] = { UserView.symptom1Name, UserView.symptom2Name, UserView.symptom3Name, UserView.symptom4Name };
+	String symptom[] = { UserUI.symptom1Name, UserUI.symptom2Name, UserUI.symptom3Name, UserUI.symptom4Name };
 	ManagerDAO dao;
 	public DefaultTableModel model;
 

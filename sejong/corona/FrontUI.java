@@ -1,6 +1,7 @@
 package sejong.corona;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -13,7 +14,8 @@ public class FrontUI extends JFrame {
 
 	static TriageRoomAPI triageRoomModel;
 	ManagerView managerView;
-	UserView userView;
+
+	UserUI userUI;
 
 	FrontUI() {
 		setTitle("코로나 선별 진료소 예약 / 관리 시스템");
@@ -36,23 +38,23 @@ public class FrontUI extends JFrame {
 	private void startUI() {
 		userBtn = new JButton("예약자");
 		userBtn.setBounds(160, 200, 120, 50);
+		userBtn.setBackground(new Color(230,250,250));
 		managerBtn = new JButton("관리자");
 		managerBtn.setBounds(360, 200, 120, 50);
+		managerBtn.setBackground(new Color(250,250,230));
 
 		img = new ImageIcon(FrontUI.class.getResource("/sejong/corona/background.png")).getImage();
-//		img.getScaledInstance(1, 1, Image.SCALE_SMOOTH);
 		logo = new JLabel(new ImageIcon(img));
-//		logo.setBounds(0, 0, 640, 390);
 
 		userBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == userBtn) {
-					if (userView == null) {
-						userView = new UserView();
-					}
-					userView.setVisible(true);
-				}
-			}
+		        if (e.getSource() == userBtn) {
+		            if (userUI == null) {
+		            	userUI = new UserUI();
+		            }
+		        	userUI.setVisible(true);
+		        }
+		    }
 		});
 
 		managerBtn.addActionListener(new ActionListener() {

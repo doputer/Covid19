@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class CovidDAO {
 	String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://127.0.0.1/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	String jdbcUrl = "jdbc:mysql://127.0.0.1:1105/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	Connection conn = null;
 
 	PreparedStatement pstmt;
@@ -14,8 +14,8 @@ public class CovidDAO {
 
 	public void connectDB() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "971105");
 			System.out.println("드라이버 연결 성공");
 		} catch (SQLException e) {
 			e.printStackTrace();
