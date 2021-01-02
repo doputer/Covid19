@@ -79,36 +79,27 @@ public class ManagerDAO extends CovidDAO {
 		}
 	}
 
-	public void deleteUser(int code) {
+	public void deleteUser(int id) {
 		try {
-			sql = "DELETE FROM user WHERE id = ?";
+			sql = "DELETE FROM user WHERE id = " + id;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, String.valueOf(code));
+			sql = "DELETE FROM user_detail WHERE id = " + id;
+			pstmt = conn.prepareStatement(sql);
+			sql = "DELETE FROM reserve WHERE id = " + id;
+			pstmt = conn.prepareStatement(sql);
+			sql = "DELETE FROM manager_result WHERE user_id = " + id;
+			pstmt = conn.prepareStatement(sql);
 
+			System.out.println("행번호: " + id);
 			int sucess = pstmt.executeUpdate();
 			if (sucess > 0)
-				System.out.println(code + " 삭제 성공");
+				System.out.println(id + "행 삭제 성공");
 			else
-				System.out.println(code + "삭제 실패");
+				System.out.println(id + "행 삭제 실패");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
-
-	public void deleteAllUser() {
-		try {
-			sql = "TRUNCATE manager_result" + "TRUNCATE reserve" + "TRUNCATE user_detail" + "TRUNCATE user";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate(sql);
-
-			int sucess = pstmt.executeUpdate();
-			if (sucess > 0)
-				System.out.println("전체 삭제 성공");
-			else
-				System.out.println("전체 삭제 실패");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 }
