@@ -371,7 +371,7 @@ public class UserUI extends JFrame{
 		connect2Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect2Btn) {
-					userChatUI = new UserChatUI(UserUI.this, "문의하기", name.getText());
+					userChatUI = new UserChatUI(UserUI.this, "문의하기", "가나다"); // 이 부분
 					userChatUI.setVisible(true);
 				}
 			}
