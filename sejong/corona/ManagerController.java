@@ -3,6 +3,9 @@ package sejong.corona;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 public class ManagerController {
 	ManagerView view;
@@ -12,37 +15,45 @@ public class ManagerController {
 		this.view = view;
 		this.dao = dao;
 	}
-	
+	private Vector<String> makeInfo(UserDTO dto) {
+		Vector<String> row = new Vector<String>();
+		row.add(String.valueOf(dto.getId()));
+		row.add(dto.getName());
+		row.add(dto.getPhone());
+		row.add(dto.getAddress());
+		row.add(dto.getBirth());
+		row.add(dto.getGender());
+		row.add(dto.getSymptom2());
+		row.add(dto.getSymptom1());
+		row.add(dto.getSymptom3());
+		row.add(dto.getSymptom4());
+		row.add(dto.getEtc());
+		row.add(dto.getHospital());
+		row.add(dto.getDate());
+		row.add(dto.getStatus());
 	private String makeInfo(UserDTO dto) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(dto.getId());
-		sb.append("   " + dto.getName());
-		sb.append("   " + dto.getPhone());
-		sb.append("   " + dto.getAddress());
-		sb.append("   " + dto.getBirth());
-		sb.append("   " + dto.getGender());
-		sb.append("   " + dto.getSymptom1());
-		sb.append("   " + dto.getSymptom2());
-		sb.append("   " + dto.getSymptom3());
-		sb.append("   " + dto.getSymptom4());
-		sb.append("   " + dto.getEtc());
-		sb.append("   " + dto.getHospital());
-		sb.append("   " + dto.getDate());
-		sb.append("   " + dto.getStatus());
-		
 		return sb.toString();
+	}
+	
+	private String makeDefualtInfO() {
+		StringBuilder sb = new StringBuilder();
+		
+		return row;
 	}
 
 	public void refresh() {
-		view.listVct.clear();
-//		view.listVct.addElement(makeDefualtInfO());
+//		view.model.setRowCount(0);
 		ArrayList<UserDTO> dtos = new ArrayList<UserDTO>();
 
 		if (view._clinic.getSelectedItem().toString().equals("전체") && view.dateChooser.getDate() == null) {
 			dtos = dao.getAllUser();
 
 			for (UserDTO dto : dtos) {
+<<<<<<< HEAD
+				view.model.addRow(makeInfo(dto));
+=======
 				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
@@ -65,6 +76,9 @@ public class ManagerController {
 			dtos = dao.getUser("", year + "-" + month + "-" + day);
 			
 			for (UserDTO dto : dtos) {
+<<<<<<< HEAD
+				view.model.addRow(makeInfo(dto));
+=======
 				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
@@ -72,6 +86,9 @@ public class ManagerController {
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), "");
 
 			for (UserDTO dto : dtos) {
+<<<<<<< HEAD
+				view.model.addRow(makeInfo(dto));
+=======
 				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}
@@ -94,6 +111,9 @@ public class ManagerController {
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), year + "-" + month + "-" + day);
 
 			for (UserDTO dto : dtos) {
+<<<<<<< HEAD
+				view.model.addRow(makeInfo(dto));
+=======
 				view.listVct.addElement(makeInfo(dto));
 				view.cnt++;
 			}

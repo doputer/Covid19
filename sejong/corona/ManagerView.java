@@ -1,6 +1,7 @@
 package sejong.corona;
 
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -13,7 +14,7 @@ public class ManagerView extends JFrame {
 	JLabel lblmessage;
 	JComboBox<String> _clinic;
 	JComboBox<String> _symptom;
-	JList<String> List;
+	JTable dataTbl;
 	JDateChooser dateChooser;
 	ManagerController controlL;
 
@@ -21,7 +22,7 @@ public class ManagerView extends JFrame {
 	ManagerChatUI managerChatUI;
 	String symptom[] = { UserView.symptom1Name, UserView.symptom2Name, UserView.symptom3Name, UserView.symptom4Name };
 	ManagerDAO dao;
-	public DefaultListModel<String> listVct;
+	public DefaultTableModel model;
 
 	public int cnt = 0;
 
@@ -46,10 +47,17 @@ public class ManagerView extends JFrame {
 		message.setBackground(Color.white);
 		message.setLayout(null);
 
-		listVct = new DefaultListModel<String>();
-		List = new JList<String>(listVct);
-		List.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		JScrollPane scroll = new JScrollPane(List);
+		String header[] = {"아이디", "이름", "연락처", "주소", "생년월일", "성별", "증상1", "증상2", "증상3", "증상4", "기타", "선별진료소", "예약일자", "예약상태"};
+		model = new DefaultTableModel(null,header);
+		dataTbl = new JTable(model) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		dataTbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		JScrollPane scroll = new JScrollPane(dataTbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(10, 200, 870, 450);
 		add(scroll);
 
