@@ -48,13 +48,20 @@ public class ManagerDAO extends CovidDAO {
 		return null;
 	}
 
-	public ArrayList<UserDTO> getUser(String hospital) {
+	public ArrayList<UserDTO> getUser(String hospital, String date) {
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
 		sqlSb.append("on user.id = user_detail.id ");
 		sqlSb.append("left join reserve ");
 		sqlSb.append("on user.id = reserve.id ");
-		sqlSb.append("where hospital = '" + hospital + "'");
+		if (date == "") {
+			sqlSb.append("where hospital = '" + hospital + "'");
+		} else if (hospital == "") {
+			sqlSb.append("where date = '" + date + "'");
+		} else {
+			sqlSb.append("where hospital = '" + hospital + "'");
+			sqlSb.append("and date = '" + date + "'");
+		}
 
 		sql = sqlSb.toString();
 
