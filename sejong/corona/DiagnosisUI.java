@@ -18,21 +18,21 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 	JComboBox<String> hospitalCb, dateCb;
 	JButton okBtn, cancleBtn;
 	JDateChooser dateChooser;
-	ManagerView view;
+	ManagerUI view;
 	int row, col;
 
-	DiagnosisUI(JFrame frame, String title, ManagerView view) { // 파라미터로 예약자 정보 가져오기
+	DiagnosisUI(JFrame frame, String title, ManagerUI view) { // 파라미터로 예약자 정보 가져오기
 		super(frame, title);
 		setLayout(null);
 
 		this.view = view;
 		this.row = view.row;
 		this.col = view.col;
-		
+
 		startUI();
 
 		setSize(360, 480);
-		setLocationRelativeTo(null);
+		this.setLocation((int) (frame.getX() - this.getWidth() + 16), frame.getY());
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -40,6 +40,8 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 				dispose();
 			}
 		});
+
+		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
@@ -60,7 +62,7 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 					String result = diagnosisTa.getText();
 					String hospital = hospitalCb.getSelectedItem().toString();
 					String date = view.controlL.toDate(dateChooser.getDate());
-					
+
 					view.dao.updateUser(id, result, hospital, date);
 					view.cnt = 0;
 					view.controlL.refresh();
@@ -81,18 +83,21 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		hospitalCb.setBounds(40, 320, 120, 30);
-		hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
+		if (view.dataTbl.getValueAt(row, 11) != null)
+			hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(180, 320, 120, 30);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
-		
-		Calendar calendar = new GregorianCalendar();
-		String date[] = view.dataTbl.getValueAt(row, 12).toString().split("-");
-		calendar.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[2]));
-		dateChooser.setCalendar(calendar);
-		
+
+		if (view.dataTbl.getValueAt(row, 12) != null) {
+			Calendar calendar = new GregorianCalendar();
+			String date[] = view.dataTbl.getValueAt(row, 12).toString().split("-");
+			calendar.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[2]));
+			dateChooser.setCalendar(calendar);
+		}
+
 		add(nameTf);
 		add(diagnosisTa);
 		add(hospitalCb);
