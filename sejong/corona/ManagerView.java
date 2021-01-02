@@ -13,7 +13,7 @@ import java.awt.event.*;
 
 public class ManagerView extends JFrame {
 	JTextArea textL;
-	JLabel lblmessage;
+	JLabel mNumber;
 	JComboBox<String> _clinic;
 	JComboBox<String> _symptom;
 	JTable dataTbl;
@@ -52,7 +52,7 @@ public class ManagerView extends JFrame {
 	}
 
 	public void setFrame() {
-		setTitle("Manager 1.0");
+		setTitle("코로나 선별진료소 관리 시스템");
 		setSize(900, 700);
 		setLocationRelativeTo(null);
 		setLayout(null);
@@ -95,9 +95,9 @@ public class ManagerView extends JFrame {
 		dateChooser.setBounds(250, 100, 170, 40);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
-		JLabel mNumber = new JLabel("현재 진료소 인원 수: " + cnt);
-		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		mNumber.setBounds(625, 155, 230, 20);
+		mNumber = new JLabel("현재 진료소 인원 수: " + cnt);
+		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		mNumber.setBounds(730, 175, 230, 20);
 		message.add(mNumber);
 
 		JButton _diagnosis = new JButton("예약자 진단");

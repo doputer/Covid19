@@ -1,3 +1,5 @@
+package sejong.corona;
+
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
