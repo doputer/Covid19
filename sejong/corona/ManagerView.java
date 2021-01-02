@@ -96,7 +96,7 @@ public class ManagerView extends JFrame {
 		mNumber.setBounds(500, 30, 150, 40);
 		message.add(mNumber);
 
-		_clinic = new JComboBox();
+		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
 		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		_clinic.addItem("진료소");
