@@ -45,6 +45,8 @@ public class CovidDAO {
 		sqlSb.append("on user.id = user_detail.id ");
 		sqlSb.append("left join reserve ");
 		sqlSb.append("on user.id = reserve.id ");
+		sqlSb.append("left join manager_result ");
+		sqlSb.append("on user.id = manager_result.user_id ");
 		if (date == "") {
 			sqlSb.append("where hospital = '" + hospital + "'");
 		} else if (hospital == "") {
@@ -77,6 +79,7 @@ public class CovidDAO {
 				dto.setHospital(rs.getString("hospital"));
 				dto.setDate(rs.getString("date"));
 				dto.setStatus(rs.getString("status"));
+				dto.setResult(rs.getString("result"));
 
 				datas.add(dto);
 			}

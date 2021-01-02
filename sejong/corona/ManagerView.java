@@ -19,7 +19,7 @@ public class ManagerView extends JFrame {
 	JTable dataTbl;
 	DefaultTableModel model;
 	String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "발열", "어지러움", "기침", "오한", "기타", "선별진료소", "예약일자",
-			"예약상태" };
+			"예약상태", "진단결과" };
 	String contents[][] = {};
 	JDateChooser dateChooser;
 	ManagerController controlL;
@@ -29,8 +29,7 @@ public class ManagerView extends JFrame {
 	String symptom[] = { UserUI.symptom1Name, UserUI.symptom2Name, UserUI.symptom3Name, UserUI.symptom4Name };
 	ManagerDAO dao;
 	
-	int col, row;
-
+	int col = 0, row = 0;
 	public int cnt = 0;
 
 	public ManagerView() {
@@ -105,9 +104,9 @@ public class ManagerView extends JFrame {
 		_diagnosis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == _diagnosis) {
-					if (diagnosisUI == null) {
-						diagnosisUI = new DiagnosisUI(ManagerView.this, "진단");
-					}
+//					if (diagnosisUI == null) {
+						diagnosisUI = new DiagnosisUI(ManagerView.this, "진단", ManagerView.this);
+//					}
 					diagnosisUI.setVisible(true);
 					_diagnosis.requestFocus();
 				}

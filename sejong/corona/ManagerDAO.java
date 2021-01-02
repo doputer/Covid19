@@ -17,7 +17,9 @@ public class ManagerDAO extends CovidDAO {
 		sqlSb.append("select * from user left join user_detail ");
 		sqlSb.append("on user.id = user_detail.id ");
 		sqlSb.append("left join reserve ");
-		sqlSb.append("on user.id = reserve.id");
+		sqlSb.append("on user.id = reserve.id ");
+		sqlSb.append("left join manager_result ");
+		sqlSb.append("on user.id = manager_result.user_id");
 
 		sql = sqlSb.toString();
 
@@ -42,6 +44,7 @@ public class ManagerDAO extends CovidDAO {
 				dto.setHospital(rs.getString("hospital"));
 				dto.setDate(rs.getString("date"));
 				dto.setStatus(rs.getString("status"));
+				dto.setResult(rs.getString("result"));
 
 				datas.add(dto);
 			}
@@ -52,19 +55,25 @@ public class ManagerDAO extends CovidDAO {
 		return null;
 	}
 
-	public void updateUser(UserDTO t) {
-		sql = "UPDATE manager_result SET result = ? WHERE id = ?";
+	public void updateUser(int id, String result, String hospital, String date) {
+		StringBuilder sb = new StringBuilder();
+		sql = sb.append("update manager_result set").append(" result = '" + result + "'")
+				.append(" where user_id = " + id + ";").toString();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, String.valueOf(t.getResult()));
-			pstmt.setString(2, String.valueOf(t.getId()));
-			int sucess = pstmt.executeUpdate();
-
-			if (sucess > 0)
-				System.out.println(t.getName() + " 수정 성공");
-			else
-				System.out.println(t.getName() + " 수정 실패");
-
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		sb = new StringBuilder();
+		sql = sb.append("update reserve set").append(" status = '예약완료',")
+				.append(" hospital = '" + hospital + "',")
+				.append(" date = '" + date + "'")
+				.append(" where id = " + id + ";").toString();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

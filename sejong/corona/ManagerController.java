@@ -2,6 +2,7 @@ package sejong.corona;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
@@ -32,6 +33,7 @@ public class ManagerController {
 		row.add(dto.getHospital());
 		row.add(dto.getDate());
 		row.add(dto.getStatus());
+		row.add(dto.getResult());
 
 		return row;
 	}
@@ -48,21 +50,7 @@ public class ManagerController {
 				view.cnt++;
 			}
 		} else if (view._clinic.getSelectedItem().toString().equals("전체")) {
-			Calendar calendar = new GregorianCalendar();
-			calendar.setTime(view.dateChooser.getDate());
-
-			String year = String.valueOf(calendar.get(Calendar.YEAR));
-			String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-
-			if (month.length() == 1) {
-				month = "0" + month;
-			}
-			if (day.length() == 1) {
-				day = "0" + day;
-			}
-
-			dtos = dao.getUser("", year + "-" + month + "-" + day);
+			dtos = dao.getUser("", toDate(view.dateChooser.getDate()));
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
@@ -76,31 +64,30 @@ public class ManagerController {
 				view.cnt++;
 			}
 		} else {
-			Calendar calendar = new GregorianCalendar();
-			calendar.setTime(view.dateChooser.getDate());
-
-			String year = String.valueOf(calendar.get(Calendar.YEAR));
-			String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-
-			if (month.length() == 1) {
-				month = "0" + month;
-			}
-			if (day.length() == 1) {
-				day = "0" + day;
-			}
-
-			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), year + "-" + month + "-" + day);
+			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), toDate(view.dateChooser.getDate()));
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
 				view.cnt++;
 			}
 		}
+	}
+	
+	public String toDate(Date date) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
 
-		if (view.dataTbl.getRowCount() >= 0) {
-			System.out.print(view.row);
-			System.out.print(view.col);
+		String year = String.valueOf(calendar.get(Calendar.YEAR));
+		String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+		String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+
+		if (month.length() == 1) {
+			month = "0" + month;
 		}
+		if (day.length() == 1) {
+			day = "0" + day;
+		}
+		
+		return year + "-" + month + "-" + day;
 	}
 }
