@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 
 public class ManagerChatController implements Runnable {
 	private Gson gson = new Gson();
-	
+
 	private final ManagerChatUI v;
 	private final ChatData chatData;
 
@@ -30,7 +30,7 @@ public class ManagerChatController implements Runnable {
 
 		this.chatData = chatData;
 		this.v = v;
-		
+
 		connectServer();
 		appMain();
 	}
@@ -47,7 +47,8 @@ public class ManagerChatController implements Runnable {
 					if (v.idCb.getSelectedItem().equals("전체")) {
 						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "all")));
 					} else {
-						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "user", v.idCb.getSelectedItem().toString())));
+						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "user",
+								v.idCb.getSelectedItem().toString())));
 					}
 					v.msgInput.setText("");
 				}
@@ -76,7 +77,7 @@ public class ManagerChatController implements Runnable {
 
 	public void run() {
 		String msg;
-		
+
 		status = true;
 		while (status) {
 			try {

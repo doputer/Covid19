@@ -1,4 +1,5 @@
 package sejong.corona;
+
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
@@ -13,13 +14,13 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 	JComboBox<String> hospitalCb, dateCb;
 	JButton okBtn, cancleBtn;
 	JDateChooser dateChooser;
-	
+
 	DiagnosisUI(JFrame frame, String title) { // 파라미터로 예약자 정보 가져오기
 		super(frame, title);
 		setLayout(null);
-		
+
 		startUI();
-		
+
 		setSize(360, 480);
 		setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
@@ -45,15 +46,15 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 		okBtn.setBounds(80, 380, 80, 30);
 		cancleBtn = new JButton("취소");
 		cancleBtn.setBounds(180, 380, 80, 30);
-		
+
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		hospitalCb.setBounds(40, 320, 120, 30);
-		
+
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(180, 320, 120, 30);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
-		
+
 		add(nameTf);
 		add(symptomBtn);
 		add(diagnosisTa);
@@ -68,4 +69,3 @@ public class DiagnosisUI extends JDialog implements ActionListener {
 		dispose();
 	}
 }
-

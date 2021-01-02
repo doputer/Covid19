@@ -7,13 +7,13 @@ import javax.swing.*;
 public class UserChatUI extends JFrame {
 
 	public JTextArea msgOut;
-	
+
 	public JScrollPane jsp;
-	
+
 	public JPanel msgPanel;
 	public JTextField msgInput;
 	public JButton sendBtn;
-	
+
 	private UserChatController controller;
 
 	public UserChatUI(JFrame frame, String title, String name) {
@@ -21,7 +21,7 @@ public class UserChatUI extends JFrame {
 		setLayout(new BorderLayout());
 
 		startUI();
-		
+
 		controller = new UserChatController(new ChatData(), this, name);
 
 		setSize(400, 440);
@@ -33,7 +33,7 @@ public class UserChatUI extends JFrame {
 				super.windowClosing(e);
 				dispose();
 			}
-			
+
 			@Override
 			public void windowClosed(WindowEvent e) {
 				controller.unconnectServer();

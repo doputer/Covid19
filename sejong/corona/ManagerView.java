@@ -47,8 +47,9 @@ public class ManagerView extends JFrame {
 		message.setBackground(Color.white);
 		message.setLayout(null);
 
-		String header[] = {"아이디", "이름", "연락처", "주소", "생년월일", "성별", "증상1", "증상2", "증상3", "증상4", "기타", "선별진료소", "예약일자", "예약상태"};
-		model = new DefaultTableModel(null,header);
+		String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "증상1", "증상2", "증상3", "증상4", "기타", "선별진료소", "예약일자",
+				"예약상태" };
+		model = new DefaultTableModel(null, header);
 		dataTbl = new JTable(model) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -73,7 +74,7 @@ public class ManagerView extends JFrame {
 		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		mNumber.setBounds(830, 160, 100, 20);
 		message.add(mNumber);
-		
+
 		JButton _diagnosis = new JButton("예약자 진단");
 		_diagnosis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,8 +112,6 @@ public class ManagerView extends JFrame {
 		_diagnosis.setBounds(40, 30, 150, 40);
 		_consulting.setBounds(680, 30, 150, 40);
 		_confirm.setBounds(680, 100, 150, 40);
-
-		
 
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);

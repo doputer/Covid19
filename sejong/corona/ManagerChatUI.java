@@ -56,7 +56,7 @@ public class ManagerChatUI extends JFrame {
 		add(jsp, BorderLayout.CENTER);
 		add(msgPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void addButtonActionListener(ActionListener listener) {
 		msgInput.addActionListener(listener);
 	}

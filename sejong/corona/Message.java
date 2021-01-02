@@ -9,9 +9,9 @@ public class Message {
 	private String type;
 	private String receiver;
 	private Vector<String> ids;
-	
+
 	Message() {
-		
+
 	}
 
 	Message(String id, String passwd, String msg, String type) {
@@ -28,7 +28,7 @@ public class Message {
 		this.type = type;
 		this.receiver = receiver;
 	}
-	
+
 	Message(String type, Vector<String> ids) {
 		this.type = type;
 		this.ids = ids;
@@ -49,11 +49,11 @@ public class Message {
 	public String getType() {
 		return this.type;
 	}
-	
+
 	public String getReceiver() {
 		return this.receiver;
 	}
-	
+
 	public Vector<String> getIds() {
 		return this.ids;
 	}

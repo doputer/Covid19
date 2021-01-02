@@ -66,7 +66,7 @@ public class ChatServer {
 						}
 					} else if (m.getType().equals("logout")) {
 						logSignal(msg);
-						for (ChatThread ct : chatThreads) {				
+						for (ChatThread ct : chatThreads) {
 							if (ct.m.getId().equals(m.getId())) {
 								chatThreads.remove(ct);
 								ct.interrupt();
@@ -87,16 +87,16 @@ public class ChatServer {
 			this.interrupt();
 			logger.info(this.getName() + " 종료");
 		}
-		
+
 		void managerLogin() {
 			Vector<String> ids = new Vector<String>();
-			
+
 			for (ChatThread ct : chatThreads) {
 				if (!ct.m.getId().equals("관리자")) {
 					ids.add(ct.m.getId());
 				}
 			}
-			
+
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals("관리자")) {
 					ct.outMsg.println(gson.toJson(new Message("update", ids)));
@@ -105,7 +105,7 @@ public class ChatServer {
 		}
 
 		void logSignal(String msg) {
-			for (ChatThread ct : chatThreads) {				
+			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals("관리자")) {
 					ct.outMsg.println(msg);
 				}

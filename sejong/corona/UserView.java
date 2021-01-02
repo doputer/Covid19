@@ -1,22 +1,10 @@
 package sejong.corona;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -49,7 +37,7 @@ public class UserView extends JFrame {
 	public static JCheckBox symptom3;
 
 	public static JCheckBox symptom4;
-	
+
 	public static String symptom1Name = "발열";
 
 	public static String symptom2Name = "어지러움";
@@ -57,7 +45,7 @@ public class UserView extends JFrame {
 	public static String symptom3Name = "기침";
 
 	public static String symptom4Name = "오한";
-	
+
 	// 증상
 	protected JDateChooser date;
 	// 캘린더
@@ -152,7 +140,7 @@ public class UserView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == connect1Btn) {
 //					if (userChatUI == null) {
-						userChatUI = new UserChatUI(UserView.this, "문의하기", name.getText());
+					userChatUI = new UserChatUI(UserView.this, "문의하기", name.getText());
 //					}
 //					userChatController = new UserChatController(new ChatData(), userChatUI, name.getText());
 					userChatUI.setVisible(true);

@@ -13,10 +13,10 @@ import static java.util.logging.Level.WARNING;
 
 public class UserChatController extends Thread {
 	private Gson gson = new Gson();
-	
+
 	private final UserChatUI view;
 	private final ChatData chatData;
-	
+
 	private BufferedReader inMsg = null;
 	private PrintWriter outMsg = null;
 	private Logger logger;
@@ -24,7 +24,7 @@ public class UserChatController extends Thread {
 	private boolean status;
 	private String name;
 	private Message m;
-	
+
 	private Thread thread;
 
 	public UserChatController(ChatData chatData, UserChatUI view, String name) {
@@ -32,7 +32,7 @@ public class UserChatController extends Thread {
 		this.view = view;
 		this.chatData = chatData;
 		this.name = name;
-		
+
 		connectServer();
 		appMain();
 	}
@@ -70,7 +70,7 @@ public class UserChatController extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void unconnectServer() {
 		outMsg.println(gson.toJson(new Message(name, "", "", "logout")));
 		view.msgOut.setText("");

@@ -9,9 +9,9 @@ public class CovidDAO {
 
 	PreparedStatement pstmt;
 	ResultSet rs;
-	
+
 	String sql = "";
-	
+
 	public void connectDB() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,7 +23,7 @@ public class CovidDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void closeDB() {
 		try {
 			pstmt.close();
