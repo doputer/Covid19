@@ -234,7 +234,7 @@ public class UserController {
 				} else if (obj == view.hospitalCb) {
 					if (view.date.getDate() != null) {
 						String n = String.valueOf(dao.getUser(view.hospitalCb.getSelectedItem().toString(),
-								new ManagerController(null, null).toDate(view.date.getDate())).size());
+								new ManagerController().toDate(view.date.getDate())).size());
 						view.numLabel.setText(n + "명");
 					}
 					if (view.hospitalCb.getSelectedItem().equals("전체") || view.date.getDate() == null) {
