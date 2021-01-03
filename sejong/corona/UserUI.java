@@ -2,7 +2,7 @@ package sejong.corona;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.*;
+import java.util.Calendar;
 
 import javax.swing.*;
 
@@ -320,6 +320,7 @@ public class UserUI extends JFrame {
 		// DateChooser
 		date = new JDateChooser();
 		date.setDateFormatString("yyyy-MM-dd");
+		date.setMinSelectableDate(Calendar.getInstance().getTime());
 		date.setBounds(390, 130, 170, 40);
 		date.getJCalendar().setPreferredSize(new Dimension(170, 200));
 		choosePnl.add(date);

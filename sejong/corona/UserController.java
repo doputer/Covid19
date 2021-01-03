@@ -135,9 +135,9 @@ public class UserController {
 
 				} else if (obj == view.reserve2Btn) {
 					// 진료소, 예약날짜 - Set, 인원수 - Get
-
 					String clinic = (String) view.hospitalCb.getSelectedItem();
 					String reserveDate = ((JTextField) view.date.getDateEditor().getUiComponent()).getText();
+					
 					if (clinic == null || clinic.trim().length() == 0 || reserveDate == null
 							|| reserveDate.trim().length() == 0) {
 						// 비어있으면 통과X
@@ -169,6 +169,10 @@ public class UserController {
 							view.checkLabel4.setText("<html>예약 현황 <font color='blue'>" + view.reservation.getStatus()
 									+ "</font> 입니다.</html>");
 						}
+						
+						view.hospitalCb.setSelectedIndex(0);
+						view.date.setDate(null);
+						
 						switchPanel(view.choosePnl, view.checkPnl);
 					}
 

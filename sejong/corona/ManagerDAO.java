@@ -1,7 +1,5 @@
 package sejong.corona;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.*;
 

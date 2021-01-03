@@ -30,7 +30,6 @@ public class DiagnosisController {
 					String date = m_view.controll.toDate(view.dateChooser.getDate());
 
 					m_view.dao.updateUser(id, result, hospital, date);
-					m_view.cnt = 0;
 					m_view.controll.refresh();
 					view.dispose();
 				} else if (obj == view.cancleBtn) {

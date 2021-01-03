@@ -30,7 +30,6 @@ public class ManagerUI extends JFrame {
 	ManagerController controll;
 
 	int col = -1, row = -1;
-	public int cnt = 0;
 
 	public ManagerUI(JFrame frame) {
 		setFrame();
@@ -91,7 +90,7 @@ public class ManagerUI extends JFrame {
 		dateChooser.setBounds(250, 100, 170, 40);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
-		mNumber = new JLabel("현재 진료소 인원 수: " + cnt);
+		mNumber = new JLabel("현재 진료소 인원 수: 0");
 		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		mNumber.setBounds(730, 175, 230, 20);
 		

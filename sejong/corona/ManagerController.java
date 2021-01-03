@@ -30,8 +30,6 @@ public class ManagerController {
 					view.managerChatUI = new ManagerChatUI(view, "상담하기");
 					view.managerChatUI.setVisible(true);
 				} else if (obj == view._confirm) {
-					view.mNumber.setText("현재 진료소 인원 수: " + view.cnt);
-					view.cnt = 0;
 					view.controll.refresh();
 				} else if (obj == view._delete) {
 					if (view.row < view.dataTbl.getRowCount() && view.row > -1) {
@@ -42,7 +40,6 @@ public class ManagerController {
 						} else {
 							dao.deleteUser(Integer.parseInt(view.dataTbl.getValueAt(view.row, 0).toString()));
 						}
-						view.cnt = 0;
 						view.controll.refresh();
 					}
 				}
@@ -100,32 +97,28 @@ public class ManagerController {
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
-				view.cnt++;
 			}
 		} else if (view._clinic.getSelectedItem().toString().equals("전체")) {
 			dtos = dao.getUser("", toDate(view.dateChooser.getDate()));
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
-				view.cnt++;
 			}
 		} else if (view.dateChooser.getDate() == null) {
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), "");
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
-				view.cnt++;
 			}
 		} else {
 			dtos = dao.getUser(view._clinic.getSelectedItem().toString(), toDate(view.dateChooser.getDate()));
 
 			for (UserDTO dto : dtos) {
 				view.model.addRow(makeInfo(dto));
-				view.cnt++;
 			}
 		}
 
-		view.mNumber.setText("현재 진료소 인원 수: " + String.valueOf(view.cnt));
+		view.mNumber.setText("현재 진료소 인원 수: " + String.valueOf(dtos.size()));
 	}
 
 	public String toDate(Date date) {

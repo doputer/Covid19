@@ -55,7 +55,7 @@ public class DiagnosisUI extends JFrame {
 			hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
 
 		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("yyyy-mm-dd");
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(180, 320, 120, 30);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
