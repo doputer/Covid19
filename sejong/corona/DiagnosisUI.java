@@ -19,7 +19,7 @@ public class DiagnosisUI extends JFrame {
 	ManagerUI view;
 	DiagnosisController controller;
 
-	DiagnosisUI(JFrame frame, String title, ManagerUI view) { // 파라미터로 예약자 정보 가져오기
+	DiagnosisUI(JFrame frame, String title, ManagerUI view) {
 		setTitle(title);
 		setLayout(null);
 
@@ -43,6 +43,8 @@ public class DiagnosisUI extends JFrame {
 
 		diagnosisTa = new JTextArea();
 		diagnosisTa.setBounds(40, 60, 260, 240);
+		if (view.dataTbl.getValueAt(row, 14) != null)
+			diagnosisTa.setText(view.dataTbl.getValueAt(row, 14).toString());
 
 		okBtn = new JButton("확인");
 		okBtn.setBounds(80, 380, 80, 30);

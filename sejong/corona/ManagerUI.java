@@ -1,8 +1,7 @@
 package sejong.corona;
 
-import javax.swing.JFrame;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.*;
+import javax.swing.table.*;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -15,19 +14,21 @@ public class ManagerUI extends JFrame {
 	JTextArea textL;
 	JLabel mNumber;
 	JComboBox<String> _clinic;
-	
+
 	JTable dataTbl;
 	String header[] = { "아이디", "이름", "연락처", "주소", "생년월일", "성별", "발열", "어지러움", "기침", "오한", "기타", "선별진료소", "예약일자", "예약상태",
-	"진단결과" };
+			"진단결과" };
 	String contents[][] = {};
 	DefaultTableModel model = new DefaultTableModel(contents, header);
-	
+
 	JDateChooser dateChooser;
 
 	DiagnosisUI diagnosisUI;
 	ManagerChatUI managerChatUI;
 	ManagerDAO dao = new ManagerDAO();
 	ManagerController controll;
+
+	JPanel message;
 
 	int col = -1, row = -1;
 
@@ -49,11 +50,11 @@ public class ManagerUI extends JFrame {
 	}
 
 	public void setOption() {
-		JPanel message = new JPanel();
+		message = new JPanel();
 		message.setBounds(0, 0, 880, 660);
 		message.setBackground(Color.white);
 		message.setLayout(null);
-		
+
 		_diagnosis = new JButton("예약자 진단");
 		_consulting = new JButton("예약자 상담");
 		_confirm = new JButton("예약자 조회");
@@ -70,7 +71,6 @@ public class ManagerUI extends JFrame {
 
 		_clinic = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
 		_clinic.setBounds(40, 100, 170, 40);
-		_clinic.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 
 		dataTbl = new JTable(model) {
 			@Override
@@ -78,12 +78,20 @@ public class ManagerUI extends JFrame {
 				return false;
 			}
 		};
+		dataTbl.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		dataTbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(dataTbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(10, 200, 870, 450);
-		message.add(scroll);
+
+		TableColumnModel columnModel = dataTbl.getColumnModel();
+		int widths[] = { 50, 50, 100, 100, 60, 30, 30, 30, 30, 30, 100, 100, 50, 40, 50 };
+		for (int i = 0; i < widths.length; i++) {
+			if (i < columnModel.getColumnCount()) {
+				columnModel.getColumn(i).setPreferredWidth(widths[i]);
+			} else
+				break;
+		}
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -91,11 +99,10 @@ public class ManagerUI extends JFrame {
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
 		mNumber = new JLabel("현재 진료소 인원 수: 0");
-		mNumber.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		mNumber.setBounds(730, 175, 230, 20);
-		
+
 		controll = new ManagerController(this, dao);
-		
+
 		message.add(mNumber);
 		message.add(_clinic);
 		message.add(_diagnosis);
@@ -103,16 +110,17 @@ public class ManagerUI extends JFrame {
 		message.add(_confirm);
 		message.add(_delete);
 		message.add(dateChooser);
+		message.add(scroll);
 
 		add(message);
 
 		new FontManager(this.getComponents());
 	}
-	
+
 	public void addTableActionListener(ListSelectionListener listener) {
 		dataTbl.getSelectionModel().addListSelectionListener(listener);
 	}
-	
+
 	public void addButtonActionListener(ActionListener listener) {
 		_diagnosis.addActionListener(listener);
 		_consulting.addActionListener(listener);

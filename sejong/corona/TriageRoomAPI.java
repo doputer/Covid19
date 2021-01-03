@@ -65,6 +65,8 @@ public class TriageRoomAPI extends Thread {
 		v.sort(String.CASE_INSENSITIVE_ORDER);
 		v.add(0, "전체");
 		
+		System.out.println("API 불러오기 성공");
+		
 		this.interrupt();
 	}
 

@@ -28,6 +28,7 @@ public class FrontUI extends JFrame {
 		try {
 			triageRoomModel = new TriageRoomAPI();
 		} catch (IOException e) {
+			System.out.println("API 불러오기 실패");
 			e.printStackTrace();
 		}
 
