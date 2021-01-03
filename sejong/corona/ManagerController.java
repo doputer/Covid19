@@ -1,20 +1,73 @@
 package sejong.corona;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Vector;
+import java.awt.event.*;
+import java.util.*;
 
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.*;
 
 public class ManagerController {
 	ManagerUI view;
 	ManagerDAO dao;
+	
+	ManagerController() {
+	}
 
 	ManagerController(ManagerUI view, ManagerDAO dao) {
 		this.view = view;
 		this.dao = dao;
+
+		view.addButtonActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object obj = e.getSource();
+
+				if (obj == view._diagnosis) {
+					if (view.row < view.dataTbl.getRowCount() && view.row > -1) {
+						view.diagnosisUI = new DiagnosisUI(view, "진단", view);
+						view.diagnosisUI.setVisible(true);
+					}
+				} else if (obj == view._consulting) {
+					view.managerChatUI = new ManagerChatUI(view, "상담하기");
+					view.managerChatUI.setVisible(true);
+				} else if (obj == view._confirm) {
+					view.mNumber.setText("현재 진료소 인원 수: " + view.cnt);
+					view.cnt = 0;
+					view.controll.refresh();
+				} else if (obj == view._delete) {
+					if (view.row < view.dataTbl.getRowCount() && view.row > -1) {
+						if (view.dataTbl.getSelectedRows().length > 1) {
+							for (int x : view.dataTbl.getSelectedRows()) {
+								dao.deleteUser(Integer.parseInt(view.dataTbl.getValueAt(x, 0).toString()));
+							}
+						} else {
+							dao.deleteUser(Integer.parseInt(view.dataTbl.getValueAt(view.row, 0).toString()));
+						}
+						view.cnt = 0;
+						view.controll.refresh();
+					}
+				}
+			}
+		});
+
+		view.addTableActionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				view.col = view.dataTbl.getSelectedColumn();
+				if (view.dataTbl.getSelectedRow() != -1)
+					view.row = view.dataTbl.getSelectedRow();
+			}
+		});
+
+		view.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				dao.connectDB();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dao.closeDB();
+			}
+		});
 	}
 
 	private Vector<String> makeInfo(UserDTO dto) {

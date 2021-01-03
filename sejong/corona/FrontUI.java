@@ -16,6 +16,7 @@ public class FrontUI extends JFrame {
 	ManagerUI managerView;
 
 	UserUI userUI;
+	FrontController controller;
 
 	FrontUI() {
 		setTitle("코로나 선별 진료소 예약 / 관리 시스템");
@@ -48,28 +49,8 @@ public class FrontUI extends JFrame {
 
 		img = new ImageIcon(FrontUI.class.getResource("/sejong/corona/background.png")).getImage();
 		logo = new JLabel(new ImageIcon(img));
-
-		userBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == userBtn) {
-//					if (userUI == null) {
-						userUI = new UserUI(FrontUI.this);
-//					}
-					userUI.setVisible(true);
-				}
-			}
-		});
-
-		managerBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == managerBtn) {
-//					if (managerView == null) {
-						managerView = new ManagerUI(FrontUI.this);
-//					}
-					managerView.setVisible(true);
-				}
-			}
-		});
+		
+		controller = new FrontController(this);
 
 		add(userBtn);
 		add(managerBtn);
@@ -78,5 +59,10 @@ public class FrontUI extends JFrame {
 
 	public static void main(String[] args) {
 		new FrontUI();
+	}
+	
+	public void addButtonActionListener(ActionListener listener) {
+		userBtn.addActionListener(listener);
+		managerBtn.addActionListener(listener);
 	}
 }

@@ -4,22 +4,20 @@ import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.*;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
-public class DiagnosisUI extends JFrame implements ActionListener {
+public class DiagnosisUI extends JFrame {
 	JTextField nameTf;
 	JTextArea diagnosisTa;
 	JComboBox<String> hospitalCb, dateCb;
 	JButton okBtn, cancleBtn;
 	JDateChooser dateChooser;
-	ManagerUI view;
 	int row, col;
+
+	ManagerUI view;
+	DiagnosisController controller;
 
 	DiagnosisUI(JFrame frame, String title, ManagerUI view) { // 파라미터로 예약자 정보 가져오기
 		setTitle(title);
@@ -33,52 +31,22 @@ public class DiagnosisUI extends JFrame implements ActionListener {
 
 		setSize(360, 480);
 		this.setLocation((int) (frame.getX() - this.getWidth() + 16), frame.getY());
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				dispose();
-			}
-		});
-
-		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
-		nameTf = new JTextField(10); // 추후에 수정
+		nameTf = new JTextField(10);
 		nameTf.setBounds(40, 20, 260, 30);
 		nameTf.setBackground(Color.white);
 		nameTf.setText("선택한 예약자: " + view.dataTbl.getValueAt(row, 1).toString());
-		nameTf.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		nameTf.setEditable(false);
 		nameTf.setHorizontalAlignment(JLabel.CENTER);
+
 		diagnosisTa = new JTextArea();
 		diagnosisTa.setBounds(40, 60, 260, 240);
-		okBtn = new JButton("확인");
-		okBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == okBtn) {
-					int id = Integer.parseInt(view.dataTbl.getValueAt(row, 0).toString());
-					String result = diagnosisTa.getText();
-					String hospital = hospitalCb.getSelectedItem().toString();
-					String date = view.controlL.toDate(dateChooser.getDate());
 
-					view.dao.updateUser(id, result, hospital, date);
-					view.cnt = 0;
-					view.controlL.refresh();
-					dispose();
-				}
-			}
-		});
+		okBtn = new JButton("확인");
 		okBtn.setBounds(80, 380, 80, 30);
 		cancleBtn = new JButton("취소");
-		cancleBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == cancleBtn) {
-					dispose();
-				}
-			}
-		});
 		cancleBtn.setBounds(180, 380, 80, 30);
 
 		hospitalCb = new JComboBox<String>(FrontUI.triageRoomModel.getTriageRoom());
@@ -87,7 +55,7 @@ public class DiagnosisUI extends JFrame implements ActionListener {
 			hospitalCb.setSelectedItem(view.dataTbl.getValueAt(row, 11).toString());
 
 		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("yyyy-MM-dd");
+		dateChooser.setDateFormatString("yyyy-mm-dd");
 		dateChooser.setBounds(180, 320, 120, 30);
 		dateChooser.getJCalendar().setPreferredSize(new Dimension(170, 200));
 
@@ -98,16 +66,20 @@ public class DiagnosisUI extends JFrame implements ActionListener {
 			dateChooser.setCalendar(calendar);
 		}
 
+		controller = new DiagnosisController(this, view);
+
 		add(nameTf);
 		add(diagnosisTa);
 		add(hospitalCb);
 		add(okBtn);
 		add(cancleBtn);
 		add(dateChooser);
+
+		new FontManager(this.getComponents());
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		dispose();
+	public void addButtonActionListener(ActionListener listener) {
+		okBtn.addActionListener(listener);
+		cancleBtn.addActionListener(listener);
 	}
 }

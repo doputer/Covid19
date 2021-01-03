@@ -14,34 +14,20 @@ public class UserChatUI extends JFrame {
 	public JTextField msgInput;
 	public JButton sendBtn;
 
-	private UserChatController controller;
+	public UserChatController controller;
+	
+	private String name;
 
 	public UserChatUI(JFrame frame, String title, String name) {
 		setTitle(title);
 		setLayout(new BorderLayout());
 
+		this.name = name;
 		startUI();
-
-		controller = new UserChatController(new ChatData(), this, name);
 
 		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
 		setSize(400, 440);
 		setResizable(false);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				dispose();
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				controller.unconnectServer();
-			}
-		});
-
-		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
@@ -58,9 +44,13 @@ public class UserChatUI extends JFrame {
 		msgPanel.setLayout(new BorderLayout());
 		msgPanel.add(msgInput, BorderLayout.WEST);
 		msgPanel.add(sendBtn, BorderLayout.CENTER);
+		
+		controller = new UserChatController(new ChatData(), this, name);
 
 		add(jsp, BorderLayout.CENTER);
 		add(msgPanel, BorderLayout.SOUTH);
+		
+		new FontManager(this.getComponents());
 	}
 
 	public void addButtonActionListener(ActionListener listener) {

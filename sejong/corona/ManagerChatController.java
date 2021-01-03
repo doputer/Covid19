@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 public class ManagerChatController implements Runnable {
 	private Gson gson = new Gson();
 
-	private final ManagerChatUI v;
+	private final ManagerChatUI view;
 	private final ChatData chatData;
 
 	Logger logger;
@@ -25,33 +25,46 @@ public class ManagerChatController implements Runnable {
 	private boolean status;
 	private Thread thread;
 
-	public ManagerChatController(ChatData chatData, ManagerChatUI v) {
+	public ManagerChatController(ChatData chatData, ManagerChatUI view) {
 		logger = Logger.getLogger(this.getClass().getName());
 
 		this.chatData = chatData;
-		this.v = v;
+		this.view = view;
 
 		connectServer();
 		appMain();
 	}
 
 	public void appMain() {
-		chatData.addObj(v.msgOut);
+		chatData.addObj(view.msgOut);
 
-		v.addButtonActionListener(new ActionListener() {
+		view.addButtonActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 
-				if (obj == v.msgInput) {
-					if (v.idCb.getSelectedItem().equals("전체")) {
-						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "all")));
+				if (obj == view.msgInput) {
+					if (view.idCb.getSelectedItem().equals("전체")) {
+						outMsg.println(gson.toJson(new Message("관리자", "", view.msgInput.getText(), "all")));
 					} else {
-						outMsg.println(gson.toJson(new Message("관리자", "", v.msgInput.getText(), "user",
-								v.idCb.getSelectedItem().toString())));
+						outMsg.println(gson.toJson(new Message("관리자", "", view.msgInput.getText(), "user",
+								view.idCb.getSelectedItem().toString())));
 					}
-					v.msgInput.setText("");
+					view.msgInput.setText("");
 				}
+			}
+		});
+		
+		view.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				view.dispose();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				view.controller.unconnectServer();
 			}
 		});
 	}
@@ -77,7 +90,7 @@ public class ManagerChatController implements Runnable {
 	
 	public void unconnectServer() {
 		outMsg.println(gson.toJson(new Message("관리자", "", "", "logout")));
-		v.msgOut.setText("");
+		view.msgOut.setText("");
 	}
 
 	public void run() {
@@ -90,21 +103,21 @@ public class ManagerChatController implements Runnable {
 				m = gson.fromJson(msg, Message.class);
 
 				if (m.getType().equals("update")) {
-					v.uId.clear();
-					v.uId.add("전체");
-					v.uId.addAll(m.getIds());
+					view.uId.clear();
+					view.uId.add("전체");
+					view.uId.addAll(m.getIds());
 				} else if (m.getType().equals("login")) {
 					if (!m.getId().equals("관리자"))
-						v.uId.add(m.getId());
+						view.uId.add(m.getId());
 				} else if (m.getType().equals("logout")) {
-					v.uId.remove(m.getId());
+					view.uId.remove(m.getId());
 				} else if (m.getType().equals("sys")) {
 					chatData.refreshData("시스템> " + m.getMsg() + "\n");
-					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
-					v.idCb.setSelectedIndex(0);
+					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
+					view.idCb.setSelectedIndex(0);
 				} else {
 					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
-					v.msgOut.setCaretPosition(v.msgOut.getDocument().getLength());
+					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
 				}
 			} catch (IOException e) {
 				logger.log(WARNING, "[Manager] 메시지 스트림 종료");

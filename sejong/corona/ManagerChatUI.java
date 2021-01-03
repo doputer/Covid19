@@ -15,36 +15,18 @@ public class ManagerChatUI extends JFrame {
 
 	public Vector<String> uId;
 	JComboBox<String> idCb;
-	
-	private ManagerChatController controller;
+
+	public ManagerChatController controller;
 
 	ManagerChatUI(JFrame frame, String title) {
 		setTitle(title);
 		setLayout(new BorderLayout());
 
 		startUI();
-		controller = new ManagerChatController(new ChatData(), this);
-		uId.add("전체");
-		idCb.setSelectedIndex(0);
 
 		setSize(400, 700);
 		setResizable(false);
-
 		this.setLocation((int) (frame.getX() + frame.getRootPane().getWidth()), frame.getY());
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				dispose();
-			}
-			
-			@Override
-			public void windowClosed(WindowEvent e) {
-				controller.unconnectServer();
-			}
-		});
-
-		new FontManager(this.getComponents());
 	}
 
 	private void startUI() {
@@ -56,6 +38,9 @@ public class ManagerChatUI extends JFrame {
 		msgInput = new JTextField(29);
 		sendBtn = new JButton("전송");
 
+		uId.add("전체");
+		idCb.setSelectedIndex(0);
+
 		jsp = new JScrollPane(msgOut, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -63,9 +48,13 @@ public class ManagerChatUI extends JFrame {
 		msgPanel.add(msgInput, BorderLayout.WEST);
 		msgPanel.add(sendBtn, BorderLayout.CENTER);
 
+		controller = new ManagerChatController(new ChatData(), this);
+
 		add(idCb, BorderLayout.NORTH);
 		add(jsp, BorderLayout.CENTER);
 		add(msgPanel, BorderLayout.SOUTH);
+
+		new FontManager(this.getComponents());
 	}
 
 	public void addButtonActionListener(ActionListener listener) {
