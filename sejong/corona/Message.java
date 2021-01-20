@@ -58,7 +58,7 @@ public class Message {
 		this.type = type;
 	}
 
-	public String getReceiver() {
+	public String getReceiver() { // 받는 사람 게터
 		return this.receiver;
 	}
 

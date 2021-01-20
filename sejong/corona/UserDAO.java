@@ -14,7 +14,7 @@ public class UserDAO extends CovidDAO {
 		items.add("");
 	}
 
-	public UserDTO getUserId(String phone) {
+	public UserDTO getUserId(String phone) { // 핸드폰 번호에 해당하는 사용자의 아이디를 반환하는 메소드
 		sql = "select id from user where phone = ?";
 		UserDTO user = null;
 		try {
@@ -121,7 +121,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public void newResult(int id) {
+	public void newResult(int id) { // DB에 새로운 예약자를 생성하는 메소드
 		sql = "insert into manager_result (user_id) values(?)";
 
 		try {
@@ -139,7 +139,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public void updateUser(UserDTO user) {
+	public void updateUser(UserDTO user) { // DB에 저장된 예약자 정보를 갱신하는 메소드(이름, 연락처)
 		sql = "update user set name = ? where phone = ?";
 
 		try {
@@ -160,7 +160,7 @@ public class UserDAO extends CovidDAO {
 
 	// 주소, 생년월일, 성별, 증상1234, 기타사항
 	public void originalUser(UserDTO user, UserDTO userSymptom) {
-// 사용자의 id를 가져와야함
+		// 사용자의 id를 가져와야함
 		sql = "insert into user_detail (id, address, birth, gender, symptom1, symptom2, symptom3, symptom4, etc) values(?,?,?,?,?,?,?,?,?)";
 
 		try {
@@ -186,7 +186,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public void updateOriginalUser(UserDTO user, UserDTO userSymptom) {
+	public void updateOriginalUser(UserDTO user, UserDTO userSymptom) { // 이름, 연락처 외에 문진표에서 작성한 정보를 저장
 		sql = "update user_detail set address = ? , birth = ? , gender = ? , symptom1 = ? , symptom2 = ?, symptom3 = ?, symptom4 = ?, etc = ? where id = ?";
 
 		try {
@@ -212,7 +212,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public void chooseReservation(int id, String hospital, String date) {
+	public void chooseReservation(int id, String hospital, String date) { // 선택한 선별 진료소와 일자도 저장하는 메소드
 		sql = "insert into reserve (id, hospital, date) values (?,?,?)";
 
 		try {
@@ -232,7 +232,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public void updateReservation(int id, String hospital, String date) {
+	public void updateReservation(int id, String hospital, String date) { // 선별 진료소와 일자를 DB에서 갱신하는 메소드
 		sql = "update reserve set hospital = ? , date = ? where id = ?";
 
 		try {
@@ -252,7 +252,7 @@ public class UserDAO extends CovidDAO {
 		}
 	}
 
-	public UserDTO checkReservation(int id) {
+	public UserDTO checkReservation(int id) { // 이미 예약된 사용자인지 DB에서 확인하는 메소드
 		sql = "select * from user left join reserve on user.id = reserve.id where reserve.id = ?";
 
 		UserDTO user = null;

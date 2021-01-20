@@ -25,7 +25,7 @@ public class ManagerChatController implements Runnable {
 	private boolean status;
 	private Thread thread;
 
-	public ManagerChatController(ChatData chatData, ManagerChatUI view) {
+	public ManagerChatController(ChatData chatData, ManagerChatUI view) { // 생성자에서 채팅 서버 연결
 		logger = Logger.getLogger(this.getClass().getName());
 
 		this.chatData = chatData;
@@ -44,9 +44,9 @@ public class ManagerChatController implements Runnable {
 				Object obj = e.getSource();
 
 				if (obj == view.msgInput) {
-					if (view.idCb.getSelectedItem().equals("전체")) {
+					if (view.idCb.getSelectedItem().equals("전체")) { // 콤보박스에서 전체가 선택되면 모두에게 메시지
 						outMsg.println(gson.toJson(new Message("관리자", "", view.msgInput.getText(), "all")));
-					} else {
+					} else { // 전체 이외에 사용자가 선택되면 선택된 사용자에게만 메시지
 						outMsg.println(gson.toJson(new Message("관리자", "", view.msgInput.getText(), "user",
 								view.idCb.getSelectedItem().toString())));
 					}
@@ -63,13 +63,13 @@ public class ManagerChatController implements Runnable {
 			}
 			
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosed(WindowEvent e) { // 창이 닫히면 서버와 연결 종료
 				view.controller.unconnectServer();
 			}
 		});
 	}
 
-	public void connectServer() {
+	public void connectServer() { // 로컬 서버와 연결하는 메소드
 		try {
 			socket = new Socket("127.0.0.1", 8888);
 			logger.log(INFO, "[Manager] 서버 연결 성공");
@@ -77,7 +77,7 @@ public class ManagerChatController implements Runnable {
 			inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			outMsg = new PrintWriter(socket.getOutputStream(), true);
 
-			m = new Message("관리자", "", "", "login");
+			m = new Message("관리자", "", "", "login"); // 관리자가 로그인하면 서버에 신호를 보냄
 			outMsg.println(gson.toJson(m));
 
 			thread = new Thread(this);
@@ -88,8 +88,8 @@ public class ManagerChatController implements Runnable {
 		}
 	}
 	
-	public void unconnectServer() {
-		outMsg.println(gson.toJson(new Message("관리자", "", "", "logout")));
+	public void unconnectServer() { // 로컬 서버와 연결 해제하는 메소드
+		outMsg.println(gson.toJson(new Message("관리자", "", "", "logout"))); // 관리자가 로그아웃 하면 서버에 신호를 보냄
 		view.msgOut.setText("");
 	}
 
@@ -102,20 +102,20 @@ public class ManagerChatController implements Runnable {
 				msg = inMsg.readLine();
 				m = gson.fromJson(msg, Message.class);
 
-				if (m.getType().equals("update")) {
+				if (m.getType().equals("update")) { // 서버에서 update 신호가 오면 콤보박스 갱신
 					view.uId.clear();
 					view.uId.add("전체");
 					view.uId.addAll(m.getIds());
-				} else if (m.getType().equals("login")) {
+				} else if (m.getType().equals("login")) { // 서버에서 사용자가 로그인했다는 신호가 오면 콤보박스에 아이디 추가
 					if (!m.getId().equals("관리자"))
 						view.uId.add(m.getId());
-				} else if (m.getType().equals("logout")) {
+				} else if (m.getType().equals("logout")) { // 서버에서 사용자가 로그아웃했다는 신호가 오면 콤보박스에 아이디 삭제
 					view.uId.remove(m.getId());
-				} else if (m.getType().equals("sys")) {
+				} else if (m.getType().equals("sys")) { // 서버에서 시스템 메시지 신호가 오면 시스템 메시지 출력
 					chatData.refreshData("시스템> " + m.getMsg() + "\n");
 					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
 					view.idCb.setSelectedIndex(0);
-				} else {
+				} else { // 사용자에게 메시지가 오면 출력
 					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
 					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
 				}

@@ -9,7 +9,7 @@ public class FrontController {
 	FrontController(FrontUI view) {
 		this.view = view;
 
-		view.addButtonActionListener(new ActionListener() {
+		view.addButtonActionListener(new ActionListener() { // 사용자 모드 혹은 관리자 모드를 선택하면 새로운 창을 열어주는 이벤트
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();

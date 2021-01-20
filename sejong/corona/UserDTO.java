@@ -2,20 +2,20 @@ package sejong.corona;
 
 public class UserDTO {
 	private int id;
-	private String name;
-	private String phone;
-	private String address;
-	private String birth;
-	private String gender;
-	private String symptom1;
-	private String symptom2;
-	private String symptom3;
-	private String symptom4;
-	private String etc;
-	private String hospital;
-	private String date;
-	private String status;
-	private String result;
+	private String name; // 이름
+	private String phone; // 연락처
+	private String address; // 주소
+	private String birth; // 생년월일
+	private String gender; // 성별
+	private String symptom1; // 증상1
+	private String symptom2; // 증상2
+	private String symptom3; // 증상3
+	private String symptom4; // 증상4
+	private String etc; // 기타 증상
+	private String hospital; // 선별 진료소
+	private String date; // 예약 일자
+	private String status; // 예약 상태(예약 대기, 예약 완료)
+	private String result; // 관리자 진단 결과
 
 	public UserDTO() {
 	}

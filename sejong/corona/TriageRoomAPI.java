@@ -8,7 +8,7 @@ import java.util.*;
 
 public class TriageRoomAPI extends Thread {
 	static Vector<String> v = new Vector<String>();
-	static HashSet<String> h = new HashSet<String>();
+	static HashSet<String> h = new HashSet<String>(); // 중복 값을 방지하기 위해 초기 데이터를 해시셋에 넣음
 	StringBuilder urlBuilder;
 
 	TriageRoomAPI() throws IOException {
@@ -21,7 +21,7 @@ public class TriageRoomAPI extends Thread {
 		this.start();
 	}
 	
-	public Vector<String> getTriageRoom() {
+	public Vector<String> getTriageRoom() { // 콤보박스에 값을 추가할 수 있도록 벡터를 반환하는 게터
 		return v;
 	}
 	
@@ -62,8 +62,8 @@ public class TriageRoomAPI extends Thread {
 		}
 
 		v = new Vector<String>(h);
-		v.sort(String.CASE_INSENSITIVE_ORDER);
-		v.add(0, "전체");
+		v.sort(String.CASE_INSENSITIVE_ORDER); // 벡터의 요소들을 오름차순으로 정렬
+		v.add(0, "전체"); // 선별 진료소의 첫 요소에 전체를 추가
 		
 		System.out.println("API 불러오기 성공");
 		

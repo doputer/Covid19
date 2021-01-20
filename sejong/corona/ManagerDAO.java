@@ -10,7 +10,7 @@ public class ManagerDAO extends CovidDAO {
 //		connectDB();
 	}
 
-	public ArrayList<UserDTO> getAllUser() {
+	public ArrayList<UserDTO> getAllUser() { // 모든 예약자 정보를 반환하는 메소드
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
 		sqlSb.append("on user.id = user_detail.id ");
@@ -53,7 +53,7 @@ public class ManagerDAO extends CovidDAO {
 		return null;
 	}
 
-	public void updateUser(int id, String result, String hospital, String date) {
+	public void updateUser(int id, String result, String hospital, String date) { // 관리자가 진단하기에서 작성한 진단 내용, 선별 진료소, 예약 일자를 DB에 갱신하는 메소드
 		StringBuilder sb = new StringBuilder();
 		sql = sb.append("update manager_result set").append(" result = '" + result + "'")
 				.append(" where user_id = " + id + ";").toString();
@@ -75,7 +75,7 @@ public class ManagerDAO extends CovidDAO {
 		}
 	}
 
-	public void deleteUser(int id) {
+	public void deleteUser(int id) { // id에 해당하는 사용자를 DB에서 제거하는 메소드
 		try {
 			sql = "DELETE FROM user WHERE id = " + id;
 			pstmt = conn.prepareStatement(sql);

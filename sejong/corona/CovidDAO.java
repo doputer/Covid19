@@ -3,7 +3,7 @@ package sejong.corona;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CovidDAO {
+public class CovidDAO { // 사용자DAO와 관리자DAO에 상속해주기 위한 부모 클래스
 	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://127.0.0.1/javadb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	Connection conn = null;
@@ -13,7 +13,7 @@ public class CovidDAO {
 
 	String sql = "";
 
-	public void connectDB() {
+	public void connectDB() { // DB에 연결하는 메소드
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
@@ -25,7 +25,7 @@ public class CovidDAO {
 		}
 	}
 
-	public void closeDB() {
+	public void closeDB() { // DB에 연결 해제하는 메소드
 		try {
 			if (pstmt != null)
 				pstmt.close();
@@ -39,7 +39,7 @@ public class CovidDAO {
 		}
 	}
 
-	public ArrayList<UserDTO> getUser(String hospital, String date) {
+	public ArrayList<UserDTO> getUser(String hospital, String date) { // 선별 진료소와 예약 일자를 매개변수로 받아서 해당하는 데이터들을 반환하는 메소드
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("select * from user left join user_detail ");
 		sqlSb.append("on user.id = user_detail.id ");

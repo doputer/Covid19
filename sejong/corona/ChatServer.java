@@ -24,7 +24,7 @@ public class ChatServer {
 		new ChatServer().start();
 	}
 
-	public void start() {
+	public void start() { // 채팅 서버를 시작하고 사용자나 관리자가 연결되기를 기다림
 		logger = Logger.getLogger(this.getClass().getName());
 		try {
 			serverSocket = new ServerSocket(8888);
@@ -63,24 +63,24 @@ public class ChatServer {
 					msg = inMsg.readLine();
 					m = gson.fromJson(msg, Message.class);
 
-					if (m.getType().equals("login")) {
+					if (m.getType().equals("login")) { // 로그인 신호 받으면 관리자에게 보내서 콤보박스에 추가할 수 있게 함
 						logSignal(msg);
 						if (m.getId().equals("관리자")) {
 							managerLogin();
 						}
-					} else if (m.getType().equals("logout")) {
+					} else if (m.getType().equals("logout")) { // 로그아웃 신호 받으면 관리자에게 보내서 콤보박스에서 제거할 수 있게 함
 						logSignal(msg);
 						for (ChatThread ct : chatThreads) {
-							if (ct.m.getId().equals(m.getId())) {
+							if (ct.m.getId().equals(m.getId())) { // 로그아웃한 스레드 삭제
 								chatThreads.remove(ct);
 								ct.interrupt();
 							}
 						}
-					} else if (m.getType().equals("user")) {
+					} else if (m.getType().equals("user")) { // 관리자가 사용자에게 보내는 메시지
 						msgSendToUser(msg);
-					} else if (m.getType().equals("manager")) {
+					} else if (m.getType().equals("manager")) { // 사용자가 관리자에게 보내는 메시지
 						msgSendToManager(msg);
-					} else if (m.getType().equals("all")) {
+					} else if (m.getType().equals("all")) { // 관리자가 전체 사용자에게 보내는 메시지
 						msgSendToAll(msg);
 					}
 				} catch (IOException e) {
@@ -92,7 +92,7 @@ public class ChatServer {
 			logger.info(this.getName() + " 종료");
 		}
 
-		void managerLogin() {
+		void managerLogin() { // 관리자가 로그인하면 실행되는 메소드로 관리자 접속 전에 들어와있는 사용자들의 목록을 관리자에게 보냄
 			Vector<String> ids = new Vector<String>();
 
 			for (ChatThread ct : chatThreads) {
@@ -108,7 +108,7 @@ public class ChatServer {
 			}
 		}
 
-		void logSignal(String msg) {
+		void logSignal(String msg) { // 사용자가 로그인하면 관리자에게 신호를 보내는 메소드
 			for (ChatThread ct : chatThreads) {
 				if (ct.m.getId().equals("관리자")) {
 					ct.outMsg.println(msg);
@@ -116,7 +116,7 @@ public class ChatServer {
 			}
 		}
 
-		void msgSendToUser(String msg) {
+		void msgSendToUser(String msg) { // 관리자가 사용자 한 명에게 메시지를 보내는 메소드
 			boolean log = false;
 			
 			for (ChatThread ct : chatThreads) {
@@ -128,7 +128,7 @@ public class ChatServer {
 				}
 			}
 			
-			if (!log) {
+			if (!log) { // 해당 사용자가 존재하지 않으면 시스템 메시지를 보냄
 				for (ChatThread ct : chatThreads) {
 					if (ct.m.getId().equals(m.getId())) {
 						m = gson.fromJson(msg, Message.class);
@@ -141,7 +141,7 @@ public class ChatServer {
 			}
 		}
 
-		void msgSendToManager(String msg) {
+		void msgSendToManager(String msg) { // 사용자가 관리자에게 보내는 메시지
 			boolean log = false;
 			
 			for (ChatThread ct : chatThreads) {
@@ -153,7 +153,7 @@ public class ChatServer {
 				}
 			}
 			
-			if (!log) {
+			if (!log) { // 관리자가 존재하지 않으면 시스템 메시지를 보냄
 				for (ChatThread ct : chatThreads) {
 					if (ct.m.getId().equals(m.getId())) {
 						m = gson.fromJson(msg, Message.class);
@@ -166,7 +166,7 @@ public class ChatServer {
 			}
 		}
 
-		void msgSendToAll(String msg) {
+		void msgSendToAll(String msg) { // 관리자가 전체에게 메시지를 보내는 메소드
 			for (ChatThread ct : chatThreads) {
 				ct.outMsg.println(msg);
 			}

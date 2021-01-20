@@ -41,7 +41,7 @@ public class ManagerUI extends JFrame {
 		setResizable(false);
 	}
 
-	public void setFrame() {
+	public void setFrame() { // 프레임 설정
 		setTitle("코로나 선별진료소 관리 시스템");
 		setSize(900, 700);
 		setLocationRelativeTo(null);

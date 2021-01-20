@@ -27,7 +27,7 @@ public class UserChatController extends Thread {
 
 	private Thread thread;
 
-	public UserChatController(ChatData chatData, UserChatUI view, String name) {
+	public UserChatController(ChatData chatData, UserChatUI view, String name) { // 생성자에서 바로 서버에 연결하고, 이벤트 연결
 		logger = Logger.getLogger(this.getClass().getName());
 		this.view = view;
 		this.chatData = chatData;
@@ -37,14 +37,14 @@ public class UserChatController extends Thread {
 		appMain();
 	}
 
-	void appMain() {
+	void appMain() { 
 		chatData.addObj(view.msgOut);
 		view.addButtonActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 
-				if (obj == view.msgInput) {
+				if (obj == view.msgInput) { // 입력이 되면 매니저에게 채팅을 보냄
 					outMsg.println(gson.toJson(new Message(name, "", view.msgInput.getText(), "manager")));
 					view.msgInput.setText("");
 				}
@@ -59,13 +59,13 @@ public class UserChatController extends Thread {
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosed(WindowEvent e) { // 윈도우 창이 닫히면 채팅 서버와 연결 종료
 				view.controller.unconnectServer();
 			}
 		});
 	}
 
-	public void connectServer() {
+	public void connectServer() { // 로컬 호스트 채팅 서버에 연결하는 메소드
 		try {
 			socket = new Socket("127.0.0.1", 8888);
 			logger.log(INFO, "[User] 서버 연결 성공");
@@ -84,8 +84,8 @@ public class UserChatController extends Thread {
 		}
 	}
 
-	public void unconnectServer() {
-		outMsg.println(gson.toJson(new Message(name, "", "", "logout")));
+	public void unconnectServer() { // 채팅 서버와 연결 해제하는 메소드
+		outMsg.println(gson.toJson(new Message(name, "", "", "logout"))); // 서버에 사용자가 로그아웃했다는 신호를 보냄
 		view.msgOut.setText("");
 //		outMsg.close();
 //		
@@ -98,7 +98,7 @@ public class UserChatController extends Thread {
 //		status = false;
 	}
 
-	public void run() {
+	public void run() { // 반복하면서 관리자 혹은 시스템의 메시지를 읽음
 		String msg;
 		status = true;
 
@@ -107,10 +107,10 @@ public class UserChatController extends Thread {
 				msg = inMsg.readLine();
 				m = gson.fromJson(msg, Message.class);
 
-				if (m.getType().equals("sys")) {
+				if (m.getType().equals("sys")) { // 시스템 메시지를 받은 경우
 					chatData.refreshData("시스템> " + m.getMsg() + "\n");
 					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
-				} else {
+				} else { // 관리자로부터 메시지를 받은 경우
 					chatData.refreshData(m.getId() + "> " + m.getMsg() + "\n");
 					view.msgOut.setCaretPosition(view.msgOut.getDocument().getLength());
 				}
