@@ -43,4 +43,5 @@
 String jdbcUrl = "jdbc:mysql://127.0.0.1/[사용자 DB 이름]; // Line 8
 conn = DriverManager.getConnection(jdbcUrl, [사용자 DB 아이디], [사용자 DB 패스워드]); // Line 19
 ```
-3. 프로젝트를 Run
+3. test.sql 파일을 이용해서 DB 테이블을 생성한다.
+4. 프로젝트를 Run
